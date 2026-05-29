@@ -1,114 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="auth-wrapper">
+    <div class="auth-card">
 
-            <div class="card">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <span class="auth-brand-icon">✦</span>
+                <span>Sistema de Matrícula</span>
+            </div>
+            <div class="auth-hero">
+                <h1>Bienvenido<br>de vuelta.</h1>
+                <p>Accede a tu cuenta para gestionar tus matrículas y expedientes académicos.</p>
+            </div>
+            <div class="auth-footer-left">
+                <span>¿No tienes cuenta?</span>
+                <a href="{{ route('register') }}">Regístrate aquí</a>
+            </div>
+        </div>
 
-                <div class="card-header">
-                    {{ __('Login') }}
-                </div>
-
-                <div class="card-body">
-
-                    <!-- FORM LOGIN NORMAL -->
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <!-- EMAIL -->
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Email Address') }}
-                            </label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror"
-                                    name="email"
-                                    value="{{ old('email') }}"
-                                    required autocomplete="email" autofocus>
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- PASSWORD -->
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Password') }}
-                            </label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror"
-                                    name="password"
-                                    required autocomplete="current-password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- REMEMBER -->
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                        name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- BOTÓN LOGIN -->
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                                @endif
-
-                                <!-- SEPARADOR -->
-                                <div class="text-center my-3">
-                                    <span>o</span>
-                                </div>
-
-                                <!-- GOOGLE LOGIN -->
-                                <a href="{{ url('/auth/google') }}"
-                                    class="btn btn-danger w-100 d-flex justify-content-center align-items-center gap-2">
-
-                                    <img src="https://www.google.com/favicon.ico" width="20">
-                                    Continuar con Google
-                                </a>
-
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
+        <div class="auth-right">
+            <div class="auth-form-header">
+                <h2>Iniciar sesión</h2>
+                <p>Ingresa tus credenciales para continuar</p>
             </div>
 
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="field-group">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="email"
+                        class="field-input @error('email') field-error @enderror"
+                        name="email"
+                        value="{{ old('email') }}"
+                        placeholder="usuario@correo.com"
+                        required autocomplete="email" autofocus>
+                    @error('email')
+                        <span class="error-msg">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="field-group">
+                    <label for="password">Contraseña</label>
+                    <input id="password" type="password"
+                        class="field-input @error('password') field-error @enderror"
+                        name="password"
+                        placeholder="••••••••"
+                        required autocomplete="current-password">
+                    @error('password')
+                        <span class="error-msg">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="field-row">
+                    <label class="check-label">
+                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <span>Recordarme</span>
+                    </label>
+                    @if (Route::has('password.request'))
+                        <a class="link-subtle" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn-submit">Iniciar sesión</button>
+
+                <div class="divider"><span>o continúa con</span></div>
+
+                <a href="{{ url('/auth/google') }}" class="btn-google">
+                    <img src="https://www.google.com/favicon.ico" width="16">
+                    Google
+                </a>
+
+            </form>
         </div>
+
     </div>
 </div>
 @endsection

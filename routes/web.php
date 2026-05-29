@@ -44,4 +44,4 @@ Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallba
 */
 Route::middleware('auth')->get('/dashboard', function () {
     return view('dashboard');
-});
+})->name('dashboard'); // <--- ESTO ES LO QUE CORRIGE EL ERROR

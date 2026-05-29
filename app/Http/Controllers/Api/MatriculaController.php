@@ -1,49 +1,51 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Matricula;
+use App\Http\Requests\StoreMatriculaRequest;
+use App\Http\Requests\UpdateMatriculaRequest;
+use App\Http\Resources\MatriculaResource;
 
 class MatriculaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return MatriculaResource::collection(
+            Matricula::with(['alumno','curso'])->get()
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreMatriculaRequest $request)
     {
-        //
+        $matricula = Matricula::create($request->validated());
+        return new MatriculaResource(
+            $matricula->load(['alumno','curso'])
+        );
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $matricula = Matricula::with(['alumno','curso'])
+                              ->findOrFail($id);
+        return new MatriculaResource($matricula);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateMatriculaRequest $request, string $id)
     {
-        //
+        $matricula = Matricula::findOrFail($id);
+        $matricula->update($request->validated());
+        return new MatriculaResource(
+            $matricula->load(['alumno','curso'])
+        );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $matricula = Matricula::findOrFail($id);
+        $matricula->delete();
+        return response()->json([
+            'message' => 'Matrícula eliminada correctamente'
+        ]);
     }
 }

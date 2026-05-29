@@ -15,16 +15,16 @@ return new class extends Migration
             $table->id('id_matricula'); // Llave primaria
             $table->date('fecha_matricula');
             $table->string('estado', 50)->default('Activo'); // Ejemplo: Activo, Retirado, Pendiente
-            
+
             // Llaves foráneas a Alumno y Curso
             $table->foreignId('id_alumno')
                   ->constrained('alumnos', 'id_alumno')
                   ->onDelete('cascade');
-                  
+
             $table->foreignId('id_curso')
                   ->constrained('cursos', 'id_curso')
                   ->onDelete('cascade');
-                  
+
             $table->timestamps();
         });
     }

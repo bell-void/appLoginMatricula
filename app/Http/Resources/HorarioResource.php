@@ -1,19 +1,21 @@
 <?php
-
 namespace App\Http\Resources;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HorarioResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id_horario'  => $this->id_horario,
+            'dia_semana'  => $this->dia_semana,
+            'hora_inicio' => $this->hora_inicio,
+            'hora_fin'    => $this->hora_fin,
+            'id_curso'    => $this->id_curso,
+            'id_aula'     => $this->id_aula,
+            'curso'       => new CursoResource($this->whenLoaded('curso')),
+            'created_at'  => $this->created_at,
+        ];
     }
 }

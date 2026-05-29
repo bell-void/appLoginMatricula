@@ -1,49 +1,44 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Profesor;
+use App\Http\Requests\StoreProfesorRequest;
+use App\Http\Requests\UpdateProfesorRequest;
+use App\Http\Resources\ProfesorResource;
 
 class ProfesorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return ProfesorResource::collection(Profesor::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreProfesorRequest $request)
     {
-        //
+        $profesor = Profesor::create($request->validated());
+        return new ProfesorResource($profesor);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $profesor = Profesor::findOrFail($id);
+        return new ProfesorResource($profesor);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateProfesorRequest $request, string $id)
     {
-        //
+        $profesor = Profesor::findOrFail($id);
+        $profesor->update($request->validated());
+        return new ProfesorResource($profesor);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $profesor = Profesor::findOrFail($id);
+        $profesor->delete();
+        return response()->json([
+            'message' => 'Profesor eliminado correctamente'
+        ]);
     }
 }

@@ -1,49 +1,44 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Alumno;
+use App\Http\Requests\StoreAlumnoRequest;
+use App\Http\Requests\UpdateAlumnoRequest;
+use App\Http\Resources\AlumnoResource;
 
 class AlumnoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return AlumnoResource::collection(Alumno::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreAlumnoRequest $request)
     {
-        //
+        $alumno = Alumno::create($request->validated());
+        return new AlumnoResource($alumno);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $alumno = Alumno::findOrFail($id);
+        return new AlumnoResource($alumno);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateAlumnoRequest $request, string $id)
     {
-        //
+        $alumno = Alumno::findOrFail($id);
+        $alumno->update($request->validated());
+        return new AlumnoResource($alumno);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $alumno = Alumno::findOrFail($id);
+        $alumno->delete();
+        return response()->json([
+            'message' => 'Alumno eliminado correctamente'
+        ]);
     }
 }

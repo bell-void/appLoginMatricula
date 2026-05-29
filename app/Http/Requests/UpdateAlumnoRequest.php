@@ -1,29 +1,21 @@
 <?php
-
 namespace App\Http\Requests;
-
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAlumnoRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
+    public function authorize(): bool { return true; }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        $id = $this->route('alumno');
         return [
-            //
+            'nombre'           => 'sometimes|string|max:100',
+            'apellido'         => 'sometimes|string|max:100',
+            'fecha_nacimiento' => 'sometimes|date',
+            'email'            => 'sometimes|email|max:150|unique:alumnos,email,'.$id,
+            'telefono'         => 'nullable|string|max:20',
+            'direccion'        => 'nullable|string|max:255',
         ];
     }
 }

@@ -1,49 +1,46 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Horario;
+use App\Http\Requests\StoreHorarioRequest;
+use App\Http\Requests\UpdateHorarioRequest;
+use App\Http\Resources\HorarioResource;
 
 class HorarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return HorarioResource::collection(
+            Horario::with('curso')->get()
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreHorarioRequest $request)
     {
-        //
+        $horario = Horario::create($request->validated());
+        return new HorarioResource($horario->load('curso'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $horario = Horario::with('curso')->findOrFail($id);
+        return new HorarioResource($horario);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateHorarioRequest $request, string $id)
     {
-        //
+        $horario = Horario::findOrFail($id);
+        $horario->update($request->validated());
+        return new HorarioResource($horario->load('curso'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $horario = Horario::findOrFail($id);
+        $horario->delete();
+        return response()->json([
+            'message' => 'Horario eliminado correctamente'
+        ]);
     }
 }

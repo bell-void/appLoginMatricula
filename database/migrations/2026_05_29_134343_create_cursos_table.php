@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('nombre_curso', 150);
             $table->text('descripcion')->nullable();
             $table->integer('creditos');
-            
+
             // Llave foránea que conecta con docentes
             $table->foreignId('id_docente')
                   ->constrained('docentes', 'id_docente')
                   ->onDelete('cascade');
-                  
+
             $table->timestamps();
         });
     }

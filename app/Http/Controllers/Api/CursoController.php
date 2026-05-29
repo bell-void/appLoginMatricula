@@ -1,49 +1,46 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Curso;
+use App\Http\Requests\StoreCursoRequest;
+use App\Http\Requests\UpdateCursoRequest;
+use App\Http\Resources\CursoResource;
 
 class CursoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return CursoResource::collection(
+            Curso::with('profesor')->get()
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreCursoRequest $request)
     {
-        //
+        $curso = Curso::create($request->validated());
+        return new CursoResource($curso->load('profesor'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $curso = Curso::with('profesor')->findOrFail($id);
+        return new CursoResource($curso);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateCursoRequest $request, string $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        $curso->update($request->validated());
+        return new CursoResource($curso->load('profesor'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        $curso->delete();
+        return response()->json([
+            'message' => 'Curso eliminado correctamente'
+        ]);
     }
 }

@@ -13,7 +13,6 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    // Cambiado a /dashboard para ser consistente con tu proyecto
     protected $redirectTo = '/dashboard';
 
     public function __construct()
@@ -21,21 +20,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username()
-    {
-        return 'email';
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | GOOGLE LOGIN
+    |--------------------------------------------------------------------------
+    */
 
-    // Redirigir a Google
     public function redirectToGoogle()
     {
-        // Forzamos el selector de cuentas de Google
-        return Socialite::driver('google')
-            ->with(['prompt' => 'select_account'])
-            ->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
-    // Callback de Google
     public function handleGoogleCallback()
     {
         try {
@@ -50,19 +45,25 @@ class LoginController extends Controller
             $user = User::create([
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'password' => bcrypt('google') // Contraseña por defecto para usuarios Google
+                'password' => bcrypt('google')
             ]);
         }
 
         Auth::login($user);
 
-        // Redirigimos al Dashboard
         return redirect('/dashboard');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DEVICE TRACKING (opcional)
+    |--------------------------------------------------------------------------
+    */
 
     public function authenticated(Request $request, $user)
     {
         $device = $request->header('User-Agent');
+
         $user->update([
             'device' => $device
         ]);

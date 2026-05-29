@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\ClientsController;
+use App\Http\Controllers\Api\OrdersController;
+use App\Http\Controllers\Api\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth.basic')->get('/user-basic', function (Request $request) {
     return $request->user();
 });
+
+// 📦 Recursos públicos (sin auth por ahora, para probar en Postman)
+Route::apiResource('categories', CategoriesController::class);
+Route::apiResource('clients',    ClientsController::class);
+Route::apiResource('orders',     OrdersController::class);
+Route::apiResource('products',   ProductsController::class);

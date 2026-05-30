@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Horario extends Model
@@ -8,12 +10,21 @@ class Horario extends Model
     protected $primaryKey = 'id_horario';
 
     protected $fillable = [
-        'dia_semana', 'hora_inicio',
-        'hora_fin', 'id_curso', 'id_aula'
+        'dia_semana', 
+        'hora_inicio',
+        'hora_fin', 
+        'id_curso', 
+        'id_aula'
     ];
 
     public function curso()
     {
-        return $this->belongsTo(Curso::class, 'id_curso');
+        return $this->belongsTo(Curso::class, 'id_curso', 'id_curso');
+    }
+
+    // ✅ AGREGAR ESTA RELACIÓN
+    public function aula()
+    {
+        return $this->belongsTo(Aula::class, 'id_aula', 'id_aula');
     }
 }

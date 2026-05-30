@@ -52,10 +52,10 @@ Route::get('/auth/github/callback', [GithubController::class, 'callback']);
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard protegido
+| Dashboard (sin middleware para evitar conflicto con OAuth stateless)
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

@@ -17,7 +17,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logout', 'handleGoogleCallback', 'handleGithubCallback']);
     }
 
     /*
@@ -28,13 +28,15 @@ class LoginController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+            ->with(['prompt' => 'select_account'])
+            ->redirect();
     }
 
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return redirect('/login')->with('error', 'No se pudo iniciar sesión con Google.');
         }
@@ -43,29 +45,62 @@ class LoginController extends Controller
 
         if (!$user) {
             $user = User::create([
-                'name' => $googleUser->name,
-                'email' => $googleUser->email,
-                'password' => bcrypt('google')
+                'name'     => $googleUser->name,
+                'email'    => $googleUser->email,
+                'password' => bcrypt('google_' . uniqid()),
             ]);
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/dashboard');
     }
 
     /*
     |--------------------------------------------------------------------------
-    | DEVICE TRACKING (opcional)
+    | GITHUB LOGIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function redirectToGithub()
+    {
+        return Socialite::driver('github')
+            ->scopes(['user:email'])
+            ->redirect();
+    }
+
+    public function handleGithubCallback()
+    {
+        try {
+            $githubUser = Socialite::driver('github')->stateless()->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->with('error', 'No se pudo iniciar sesión con GitHub.');
+        }
+
+        $user = User::where('email', $githubUser->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name'     => $githubUser->name ?? $githubUser->nickname,
+                'email'    => $githubUser->email,
+                'password' => bcrypt('github_' . uniqid()),
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        return redirect('/dashboard');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DEVICE TRACKING
     |--------------------------------------------------------------------------
     */
 
     public function authenticated(Request $request, $user)
     {
         $device = $request->header('User-Agent');
-
-        $user->update([
-            'device' => $device
-        ]);
+        $user->update(['device' => $device]);
     }
 }

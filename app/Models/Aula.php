@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aula extends Model
 {
-    protected $table      = 'aulas';
+    protected $table = 'aulas';
     protected $primaryKey = 'id_aula';
 
     protected $fillable = [

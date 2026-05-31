@@ -9,31 +9,32 @@ use App\Models\User;
 
 class GithubController extends Controller
 {
-    // 1. Redirigir a GitHub
     public function redirect()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('github')
+            ->with(['allow_signup' => 'true'])
+            ->redirect();
     }
 
-    // 2. Callback de GitHub
     public function callback()
     {
-        $githubUser = Socialite::driver('github')->user();
+        try {
+            $githubUser = Socialite::driver('github')->stateless()->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->with('error', 'No se pudo iniciar sesión con GitHub.');
+        }
 
-        // Buscar usuario por email
         $user = User::where('email', $githubUser->getEmail())->first();
 
-        // Si no existe, lo crea
         if (!$user) {
             $user = User::create([
-                'name' => $githubUser->getName() ?? $githubUser->getNickname(),
-                'email' => $githubUser->getEmail(),
-                'password' => bcrypt('github') // password dummy
+                'name'     => $githubUser->getName() ?? $githubUser->getNickname(),
+                'email'    => $githubUser->getEmail(),
+                'password' => bcrypt('github_' . uniqid()),
             ]);
         }
 
-        // Login automático
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/dashboard');
     }

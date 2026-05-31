@@ -10,19 +10,26 @@ class Horario extends Model
     protected $primaryKey = 'id_horario';
 
     protected $fillable = [
-        'dia_semana', 
+        'dia_semana',
         'hora_inicio',
-        'hora_fin', 
-        'id_curso', 
-        'id_aula'
+        'hora_fin',
+        'id_curso',
+        'id_aula',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONES
+    |--------------------------------------------------------------------------
+    */
+
+    /** El horario pertenece a un curso */
     public function curso()
     {
         return $this->belongsTo(Curso::class, 'id_curso', 'id_curso');
     }
 
-    // ✅ AGREGAR ESTA RELACIÓN
+    /** El horario pertenece a un aula */
     public function aula()
     {
         return $this->belongsTo(Aula::class, 'id_aula', 'id_aula');

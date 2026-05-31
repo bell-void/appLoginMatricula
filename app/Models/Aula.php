@@ -8,13 +8,20 @@ class Aula extends Model
 {
     protected $table = 'aulas';
     protected $primaryKey = 'id_aula';
-    
+
     protected $fillable = [
         'nombre_aula',
         'capacidad',
-        'ubicacion'
+        'ubicacion',
     ];
-    
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONES
+    |--------------------------------------------------------------------------
+    */
+
+    /** Un aula puede tener muchos horarios asignados */
     public function horarios()
     {
         return $this->hasMany(Horario::class, 'id_aula', 'id_aula');

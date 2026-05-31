@@ -19,7 +19,7 @@ use App\Http\Controllers\AulaController;  // ← AGREGAR
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 })->name('home');
 
 /*

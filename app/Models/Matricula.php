@@ -11,26 +11,23 @@ class Matricula extends Model
 
     protected $fillable = [
         'id_alumno',
-        'id_horario',
+        'id_curso',        // ← CAMBIADO: usar id_curso en lugar de id_horario
         'fecha_matricula',
         'estado',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELACIONES
-    |--------------------------------------------------------------------------
-    */
-
-    /** La matrícula pertenece a un alumno */
+    // Relación con Alumno
     public function alumno()
     {
         return $this->belongsTo(Alumno::class, 'id_alumno', 'id_alumno');
     }
 
-    /** La matrícula pertenece a un horario */
-    public function horario()
+    // Relación con Curso (DIRECTA, como espera tu controlador)
+    public function curso()
     {
-        return $this->belongsTo(Horario::class, 'id_horario', 'id_horario');
+        return $this->belongsTo(Curso::class, 'id_curso', 'id_curso');
     }
+
+    // Si aún quieres mantener la relación con horario (opcional, pero no la usas)
+    // public function horario() { ... }
 }

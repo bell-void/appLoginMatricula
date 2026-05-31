@@ -1,58 +1,346 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="auth-wrapper">
-    <div class="auth-card" style="background: white; padding: 30px; border-radius: 20px;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <h2 style="color: #0B2B5B;">🕐 Lista de Horarios</h2>
-            <a href="{{ route('horarios.create') }}" style="background: #1E88E5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">+ Nuevo Horario</a>
-        </div>
+<div class="bbn-list-container">
+    <div class="list-header">
+        <a href="{{ route('dashboard') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+        <h1>Horarios</h1>
+        <a href="{{ route('horarios.create') }}" class="btn-new">
+            <i class="fas fa-plus"></i> Nuevo horario
+        </a>
+    </div>
 
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background: #F5F7FA;">
-                        <th style="padding: 12px;">ID</th>
-                        <th style="padding: 12px;">Curso</th>
-                        <th style="padding: 12px;">Día</th>
-                        <th style="padding: 12px;">Hora Inicio</th>
-                        <th style="padding: 12px;">Hora Fin</th>
-                        <th style="padding: 12px;">Aula</th>
-                        <th style="padding: 12px;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($horarios as $horario)
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">{{ $horario->id_horario }}</td>
-                        <td style="padding: 12px;">{{ $horario->curso->nombre_curso ?? 'N/A' }}</td>
-                        <td style="padding: 12px;">{{ $horario->dia_semana }}</td>
-                        <td style="padding: 12px;">{{ $horario->hora_inicio }}</td>
-                        <td style="padding: 12px;">{{ $horario->hora_fin }}</td>
-                        <td style="padding: 12px;">{{ $horario->aula->nombre_aula ?? 'N/A' }}</td>
-                        <td style="padding: 12px;">
-                            <a href="{{ route('horarios.show', $horario->id_horario) }}">👁️</a>
-                            <a href="{{ route('horarios.edit', $horario->id_horario) }}">✏️</a>
-                            <form action="{{ route('horarios.destroy', $horario->id_horario) }}" method="POST" style="display:inline;">
-                                @csrf @method('DELETE')
-                                <button type="submit" style="background:none; border:none; color:red; cursor:pointer;" onclick="return confirm('¿Eliminar horario?')">🗑️</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" style="text-align:center; padding:40px;">No hay horarios registrados</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <!-- Tarjetas de estadísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+            <div class="stat-info">
+                <span class="stat-value">{{ \App\Models\Horario::count() }}</span>
+                <span class="stat-label">Total horarios</span>
+            </div>
         </div>
-        
-        <div style="margin-top:20px;">
-            {{ $horarios->links() }}
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-chalkboard"></i></div>
+            <div class="stat-info">
+                <span class="stat-value">{{ \App\Models\Horario::distinct('id_curso')->count() }}</span>
+                <span class="stat-label">Cursos con horario</span>
+            </div>
         </div>
-        
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-door-open"></i></div>
+            <div class="stat-info">
+                <span class="stat-value">{{ \App\Models\Horario::distinct('id_aula')->count() }}</span>
+                <span class="stat-label">Aulas ocupadas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+        <input type="text" id="searchHorario" placeholder="Buscar por curso, día o aula..." class="search-input">
+    </div>
+
+    <div class="table-responsive">
+        <table class="bbn-table" id="horarios-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Curso</th>
+                    <th>Día</th>
+                    <th>Hora inicio</th>
+                    <th>Hora fin</th>
+                    <th>Aula</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($horarios as $horario)
+                <tr>
+                    <td data-label="ID">{{ $horario->id_horario }}</td>
+                    <td data-label="Curso">{{ $horario->curso->nombre_curso ?? 'N/A' }}</td>
+                    <td data-label="Día">{{ $horario->dia_semana }}</td>
+                    <td data-label="Hora inicio">{{ $horario->hora_inicio }}</td>
+                    <td data-label="Hora fin">{{ $horario->hora_fin }}</td>
+                    <td data-label="Aula">{{ $horario->aula->nombre_aula ?? 'N/A' }} ({{ $horario->id_aula }})</td>
+                    <td class="actions">
+                        <a href="{{ route('horarios.show', $horario->id_horario) }}" class="btn-icon" title="Ver">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ route('horarios.edit', $horario->id_horario) }}" class="btn-icon" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('horarios.destroy', $horario->id_horario) }}" method="POST" class="delete-form" onsubmit="return confirm('¿Eliminar este horario?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-icon" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="empty-row">No hay horarios registrados. Crea el primero.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-wrapper">
+        {{ $horarios->links() }}
     </div>
 </div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    .bbn-list-container {
+        padding: 2rem;
+        background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2e 100%);
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .list-header h1 {
+        font-family: 'Space Mono', monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #fff, #a78bfa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin: 0;
+    }
+
+    .btn-back, .btn-new {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 40px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-back {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(168,85,247,0.3);
+        color: #a78bfa;
+    }
+
+    .btn-back:hover {
+        background: rgba(168,85,247,0.15);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .btn-new {
+        background: #7c3aed;
+        color: white;
+        border: none;
+    }
+
+    .btn-new:hover {
+        background: #6d28d9;
+        transform: translateY(-2px);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: rgba(20,20,35,0.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat-icon {
+        font-size: 1.8rem;
+        color: #a78bfa;
+    }
+
+    .stat-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        font-family: 'Space Mono', monospace;
+        color: #a78bfa;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        letter-spacing: 1px;
+    }
+
+    .search-bar {
+        margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 320px;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 40px;
+        padding: 10px 18px;
+        color: white;
+        font-family: 'Space Mono', monospace;
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: #a78bfa;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        border-radius: 24px;
+        background: rgba(20,20,35,0.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bbn-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        color: #e2e8f0;
+    }
+
+    .bbn-table th {
+        text-align: left;
+        padding: 16px 20px;
+        background: rgba(0,0,0,0.3);
+        font-family: 'Space Mono', monospace;
+        font-weight: 600;
+        color: #c4b5fd;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .bbn-table td {
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        vertical-align: middle;
+    }
+
+    .bbn-table tr:hover td {
+        background: rgba(255,255,255,0.03);
+    }
+
+    .empty-row {
+        text-align: center;
+        color: #94a3b8;
+        padding: 40px !important;
+    }
+
+    .actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.08);
+        color: #cbd5e1;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+        background: rgba(255,255,255,0.18);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .delete-form {
+        display: inline;
+    }
+
+    .pagination-wrapper {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination-wrapper .pagination {
+        gap: 6px;
+    }
+
+    .pagination-wrapper .page-item .page-link {
+        background: rgba(20,20,35,0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 14px;
+        font-family: 'Space Mono', monospace;
+        transition: all 0.2s;
+    }
+
+    .pagination-wrapper .page-item.active .page-link {
+        background: #7c3aed;
+        border-color: #7c3aed;
+        color: white;
+    }
+
+    .pagination-wrapper .page-link:hover {
+        background: rgba(124,58,237,0.5);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+        .bbn-list-container { padding: 1rem; }
+        .list-header { flex-direction: column; align-items: stretch; text-align: center; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .bbn-table th, .bbn-table td { padding: 10px 12px; font-size: 0.8rem; }
+        .actions { justify-content: center; }
+    }
+</style>
+
+<script>
+    document.getElementById('searchHorario').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('.bbn-table tbody tr');
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
 @endsection

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Resources;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,8 +16,13 @@ class HorarioResource extends JsonResource
             'hora_fin'    => $this->hora_fin,
             'id_curso'    => $this->id_curso,
             'id_aula'     => $this->id_aula,
+
+            // Relaciones eager-loaded
             'curso'       => new CursoResource($this->whenLoaded('curso')),
-            'created_at'  => $this->created_at,
+            'aula'        => new AulaResource($this->whenLoaded('aula')),
+
+            'created_at'  => $this->created_at?->toDateTimeString(),
+            'updated_at'  => $this->updated_at?->toDateTimeString(),
         ];
     }
 }

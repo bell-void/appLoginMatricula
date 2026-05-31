@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         // 1. Crear el usuario de prueba para el Login (Va primero, está perfecto aquí)
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test@gmail.com',
         ]);
 
         // 2. Ejecutar los seeders del sistema de matrícula en orden jerárquico

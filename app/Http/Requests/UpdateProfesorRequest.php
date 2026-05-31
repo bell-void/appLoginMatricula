@@ -13,7 +13,7 @@ class UpdateProfesorRequest extends FormRequest
             'nombre'       => 'sometimes|string|max:100',
             'apellido'     => 'sometimes|string|max:100',
             'especialidad' => 'nullable|string|max:100',
-            'email'        => 'sometimes|email|max:150|unique:docentes,email,'.$id,
+            'email'        => 'sometimes|email|max:150|unique:docentes,email,'.$id.',id_docente',
             'telefono'     => 'nullable|string|max:20',
         ];
     }

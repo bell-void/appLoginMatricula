@@ -13,7 +13,7 @@ class UpdateAlumnoRequest extends FormRequest
             'nombre'           => 'sometimes|string|max:100',
             'apellido'         => 'sometimes|string|max:100',
             'fecha_nacimiento' => 'sometimes|date',
-            'email'            => 'sometimes|email|max:150|unique:alumnos,email,'.$id,
+            'email'            => 'sometimes|email|max:150|unique:alumnos,email,'.$id.',id_alumno',
             'telefono'         => 'nullable|string|max:20',
             'direccion'        => 'nullable|string|max:255',
         ];

@@ -16,16 +16,16 @@ return new class extends Migration
             $table->string('dia_semana', 20); // Ejemplo: "Lunes", "Martes"
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            
+
             // Llaves foráneas a Curso y Aula
             $table->foreignId('id_curso')
                   ->constrained('cursos', 'id_curso')
                   ->onDelete('cascade');
-                  
+
             $table->foreignId('id_aula')
                   ->constrained('aulas', 'id_aula')
                   ->onDelete('cascade');
-                  
+
             $table->timestamps();
         });
     }

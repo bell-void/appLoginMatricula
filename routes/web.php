@@ -10,7 +10,8 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\MatriculaController;
-use App\Http\Controllers\AulaController;  // ← AGREGAR
+use App\Http\Controllers\AulaController;
+use App\Http\Controllers\DashboardController; // ← IMPORTANTE: Agregamos el controlador del dashboard
 
 /*
 |--------------------------------------------------------------------------
@@ -58,13 +59,11 @@ Route::get('/auth/github/callback', [GithubController::class, 'callback'])->name
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard
+| Dashboard (MODIFICADO para usar DashboardController)
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
     // RUTAS PARA MATRÍCULAS
     Route::resource('matriculas', MatriculaController::class);
     
-    // RUTAS PARA AULAS  ← AGREGAR
+    // RUTAS PARA AULAS
     Route::resource('aulas', AulaController::class);
     
     // Ruta adicional para calificar

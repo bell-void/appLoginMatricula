@@ -511,8 +511,8 @@
             <a href="{{ route('register') }}" class="btn-primary btn-primary-lg">
                 Comenzar gratis <i class="fas fa-arrow-right"></i>
             </a>
-            <a href="#" class="btn-outline btn-primary-lg">
-                Ver demo <i class="fas fa-play"></i>
+            <a href="#" class="btn-outline btn-primary-lg" onclick="document.getElementById('modalDemo').style.display='flex';
+            return false;"> Ver demo <i class="fas fa-play"></i>
             </a>
         </div>
         <div class="hero-stats">
@@ -654,9 +654,15 @@
         <h2 style="font-family:'Fraunces',serif; font-size:2rem;">Recursos para tu institución</h2>
     </div>
     <div class="blog-grid">
-        <div class="blog-card"><div class="blog-img"><i class="fas fa-chalkboard"></i></div><div class="blog-content"><h4>Cómo reducir la deserción escolar</h4><p>Estrategias prácticas usando datos académicos.</p><a href="#" style="color:#4f46e5;">Leer más →</a></div></div>
-        <div class="blog-card"><div class="blog-img"><i class="fas fa-laptop-code"></i></div><div class="blog-content"><h4>Guía: Implementa tu sistema en 1 semana</h4><p>Pasos rápidos para migrar tu institución.</p><a href="#" style="color:#4f46e5;">Leer más →</a></div></div>
-        <div class="blog-card"><div class="blog-img"><i class="fas fa-chart-line"></i></div><div class="blog-content"><h4>5 indicadores que todo directivo debe seguir</h4><p>Métricas clave para la gestión educativa.</p><a href="#" style="color:#4f46e5;">Leer más →</a></div></div>
+
+        <div class="blog-card"><div class="blog-img"><i class="fas fa-chalkboard"></i></div><div class="blog-content">
+            <h4>Cómo reducir la deserción escolar</h4><p>Estrategias prácticas usando datos académicos.</p><a href="#" onclick="abrirArticulo('desercion'); return false;"style="color:#4f46e5;">Leer más →</a></div></div>
+
+            <div class="blog-card"><div class="blog-img"><i class="fas fa-laptop-code"></i></div><div class="blog-content">
+            <h4>Guía: Implementa tu sistema en 1 semana</h4><p>Pasos rápidos para migrar tu institución.</p><a href="#" onclick="abrirArticulo('implementa'); return false;"style="color:#4f46e5;">Leer más →</a></div></div>
+
+            <div class="blog-card"><div class="blog-img"><i class="fas fa-chart-line"></i></div><div class="blog-content">
+            <h4>5 indicadores que todo directivo debe seguir</h4><p>Métricas clave para la gestión educativa.</p><a href="#" onclick="abrirArticulo('indicadores'); return false;"style="color:#4f46e5;">Leer más →</a></div></div>
     </div>
 </section>
 
@@ -680,7 +686,11 @@
             <p><i class="fas fa-envelope"></i> soporte@bluebutterfly.edu</p>
             <p><i class="fas fa-phone-alt"></i> +51 1 234 5678</p>
             <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Lima, Perú</p>
-            <div style="background:#eef2ff; height:150px; border-radius:1rem; display:flex; align-items:center; justify-content:center; margin-top:1rem;"><i class="fas fa-map"></i> Mapa interactivo</div>
+            <div style="border-radius:12px; overflow:hidden; height:220px; border:1px solid #e2e8f0;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.6431376191754!2d-77.06416518843093!3d-11.999176640969388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce568c042771%3A0x6072f46c2b26e80!2sSENATI%20Sede%20Principal!5e0!3m2!1ses-419!2spe!4v1780272662053!5m2!1ses-419!2spe"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
     </div>
 </section>
@@ -706,10 +716,37 @@
 <!-- FOOTER -->
 <footer class="footer">
     <div class="footer-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:2rem; max-width:1100px; margin:0 auto;">
-        <div><h4 style="color:white;">Producto</h4><a href="#">Características</a><a href="#">Precios</a><a href="#">Demo</a></div>
-        <div><h4 style="color:white;">Recursos</h4><a href="#">Blog</a><a href="#">Documentación</a><a href="#">Soporte</a></div>
-        <div><h4 style="color:white;">Compañía</h4><a href="#">Acerca de</a><a href="#">Equipo</a><a href="#">Contacto</a></div>
-        <div><h4 style="color:white;">Legal</h4><a href="#">Privacidad</a><a href="#">Términos</a></div>
+        <div>
+            <h4 style="color:white;">Producto</h4>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
+                <li><a href="#">Características</a></li>
+                <li><a href="#">Precios</a></li>
+                <li><a href="#">Demo</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color:white;">Recursos</h4>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Documentación</a></li>
+                <li><a href="#">Soporte</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color:white;">Compañía</h4>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
+                <li><a href="#">Acerca de</a></li>
+                <li><a href="#">Equipo</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="color:white;">Legal</h4>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
+                <li><a href="#">Privacidad</a></li>
+                <li><a href="#">Términos</a></li>
+            </ul>
+        </div>
     </div>
     <div class="footer-bottom" style="text-align:center; margin-top:2rem; padding-top:1rem; border-top:1px solid #1e293b; font-size:0.7rem; color:#64748b;">© {{ date('Y') }} Blue Butterfly Network — Sistema de Matrícula Académica. Hecho con dedicación para instituciones educativas.</div>
 </footer>
@@ -755,6 +792,171 @@
             icon.classList.add('fa-chevron-down');
         }
     }
+</script>
+
+<!-- Ventana de Demo -->
+<div id="modalDemo" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:white; border-radius:16px; max-width:720px; width:100%; overflow:hidden; position:relative;">
+
+        <!-- Título y botón de cerrar -->
+        <div style="padding:1.25rem 1.5rem; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0; font-size:1.1rem; color:#1e1b4b;">Vista previa del Dashboard</h3>
+            <button onclick="cerrarModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b; line-height:1;">×</button>
+        </div>
+
+        <!-- Carrusel -->
+        <div style="position:relative; overflow:hidden;">
+            <div id="slides" style="display:flex; transition:transform 0.4s ease;">
+                <!-- Imagen 1 -->
+                <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
+                    <img src="{{ asset('imagenes/demo/slide1.PNG') }}" alt="Dashboard principal" style="width:100%; border-radius:8px; border:1px solid #e2e8f0;">
+                    <p style="margin-top:0.75rem; color:#64748b; font-size:0.9rem;">Panel principal — resumen de Alumnos, cursos, Matricula, Docentes, Horarios y Aulas</p>
+                </div>
+                <!-- Imagen 2 -->
+                <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
+                    <img src="{{ asset('imagenes/demo/slide2.PNG') }}" alt="Gestión de alumnos" style="width:100%; border-radius:8px; border:1px solid #e2e8f0;">
+                    <p style="margin-top:0.75rem; color:#64748b; font-size:0.9rem;">Gestión Cursos en tiempo real </p>
+                </div>
+                <!-- Imagen 3 -->
+                <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
+                    <img src="{{ asset('imagenes/demo/slide3.PNG') }}" alt="Reportes" style="width:100%; border-radius:8px; border:1px solid #e2e8f0;">
+                    <p style="margin-top:0.75rem; color:#64748b; font-size:0.9rem;">Gestión de Aulas en tiempon real asegurando rapidez</p>
+                </div>
+            </div>
+
+            <!-- Flechas -->
+            <button onclick="moverSlide(-1)" style="position:absolute; left:0.5rem; top:50%; transform:translateY(-50%); background:white; border:1px solid #e2e8f0; border-radius:50%; width:36px; height:36px; cursor:pointer; font-size:1.1rem; color:#1e1b4b;">‹</button>
+            <button onclick="moverSlide(1)"  style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); background:white; border:1px solid #e2e8f0; border-radius:50%; width:36px; height:36px; cursor:pointer; font-size:1.1rem; color:#1e1b4b;">›</button>
+        </div>
+
+        <!-- Puntos inferiores para saber qué imagen estamos viendo -->
+        <div id="dots" style="display:flex; justify-content:center; gap:6px; padding:1rem 0 1.25rem;">
+            <span class="dot" style="width:8px; height:8px; border-radius:50%; background:#6d28d9; cursor:pointer;" onclick="irSlide(0)"></span>
+            <span class="dot" style="width:8px; height:8px; border-radius:50%; background:#d1d5db; cursor:pointer;" onclick="irSlide(1)"></span>
+            <span class="dot" style="width:8px; height:8px; border-radius:50%; background:#d1d5db; cursor:pointer;" onclick="irSlide(2)"></span>
+        </div>
+
+        <!-- Boton para Registrarse -->
+        <div style="padding:0 1.5rem 1.5rem; text-align:center;">
+            <a href="{{ route('register') }}" style="display:inline-block; background:#6d28d9; color:white; padding:0.75rem 2rem; border-radius:999px; text-decoration:none; font-weight:500;">
+                Comenzar gratis →
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+// Funcionamiento de la ventana
+// Controladores para saber qué foto mostrar
+let slideActual = 0; // Empieza en la primera imagen
+const totalSlides = 3; // Solo 3 imágenes en total
+
+// Función para avanzar o retroceder con las flechas
+function moverSlide(dir) {
+    slideActual = (slideActual + dir + totalSlides) % totalSlides;
+    actualizarCarrusel();
+}
+
+// Función para saltar directamente a una imagen al hacer clic en los puntos
+function irSlide(n) {
+    slideActual = n;
+    actualizarCarrusel();
+}
+
+// Función que mueve visualmente las imágenes y cambia el color de los puntos
+function actualizarCarrusel() {
+
+    // Desplaza las imágenes hacia los lados
+    document.getElementById('slides').style.transform = `translateX(-${slideActual * 100}%)`;
+
+    // Pinta de morado los puntos de la imagen activa y de gris los demás
+    document.querySelectorAll('.dot').forEach((d, i) => {
+        d.style.background = i === slideActual ? '#6d28d9' : '#d1d5db';
+    });
+}
+
+// Función para ocultar la ventana y reiniciar la galería a la primera imagen
+function cerrarModal() {
+    document.getElementById('modalDemo').style.display = 'none';
+    slideActual = 0;
+    actualizarCarrusel();
+}
+
+// Cerrar al clickear fuera
+document.getElementById('modalDemo').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+});
+</script>
+
+<!-- VENTANA EMERGENTE PARA LEER ARTÍCULOS -->
+<div id="modalArticulo" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:1rem;" onclick="if(event.target===this) cerrarArticulo()">
+    <div style="background:white; border-radius:16px; max-width:600px; width:100%; max-height:85vh; overflow-y:auto; position:relative;">
+        <!-- Título y botón cerrar -->
+        <div style="padding:1.25rem 1.5rem; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:white; z-index:1;">
+            <h3 id="articuloTitulo" style="margin:0; font-size:1.1rem; color:#1e1b4b;"></h3>
+            <button onclick="cerrarArticulo()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">×</button>
+        </div>
+        <!-- Contenedor del texto -->
+        <div id="articuloContenido" style="padding:1.5rem; color:#334155; line-height:1.7; font-size:0.95rem;"></div>
+    </div>
+</div>
+
+<script>
+const articulos = {
+    // Lista de artículos
+    desercion: {
+        titulo: 'Cómo reducir la deserción escolar',
+        contenido: `
+            <p>La deserción escolar es uno de los mayores retos de las instituciones educativas. Con los datos correctos, es posible anticiparla y actuar a tiempo.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">1. Monitorea la asistencia en tiempo real</h4>
+            <p>Un sistema centralizado te permite detectar patrones de inasistencia antes de que se conviertan en abandono definitivo.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">2. Identifica alumnos en riesgo</h4>
+            <p>Cruza datos de notas, asistencia y pagos para generar alertas automáticas sobre estudiantes vulnerables.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">3. Comunica proactivamente</h4>
+            <p>Notifica a padres o tutores antes de que la situación escale. La comunicación temprana reduce la deserción hasta en un 40%.</p>
+        `
+    },
+    implementa: {
+        titulo: 'Guía: Implementa tu sistema en 1 semana',
+        contenido: `
+            <p>Migrar a un nuevo sistema no tiene que ser traumático. Con la planificación correcta, puedes estar operativo en 7 días.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">Día 1-2: Configuración inicial</h4>
+            <p>Registra tu institución, define los periodos académicos y carga la estructura de cursos.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">Día 3-4: Migración de datos</h4>
+            <p>Importa tu lista de alumnos desde Excel. El sistema acepta archivos CSV con mapeo automático de columnas.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">Día 5-7: Capacitación y pruebas</h4>
+            <p>Entrena a tu equipo con los roles del sistema y realiza matrículas de prueba antes del lanzamiento oficial.</p>
+        `
+    },
+    indicadores: {
+        titulo: '5 indicadores que todo directivo debe seguir',
+        contenido: `
+            <p>Gestionar una institución sin métricas es navegar sin brújula. Estos 5 KPIs te dan visibilidad total.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">1. Tasa de matrícula activa</h4>
+            <p>Porcentaje de alumnos matriculados vs capacidad total. Ideal: por encima del 85%.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">2. Índice de asistencia</h4>
+            <p>Promedio de asistencia por curso. Alerta si baja del 75% en alguna sección.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">3. Pendientes de pago</h4>
+            <p>Matrículas con deuda activa. Gestiona esto semanalmente para evitar cortes de acceso.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">4. Rendimiento académico promedio</h4>
+            <p>Nota promedio por curso y por periodo. Detecta materias con bajo rendimiento sistémico.</p>
+            <h4 style="color:#1e1b4b; margin-top:1.25rem;">5. Tiempo de gestión por proceso</h4>
+            <p>Cuánto tarda tu equipo en completar una matrícula. Con automatización debería ser menor a 3 minutos.</p>
+        `
+    }
+};
+// Muestra la ventana con el artículo elegido
+function abrirArticulo(key) {
+    const art = articulos[key];
+    document.getElementById('articuloTitulo').textContent = art.titulo;
+    document.getElementById('articuloContenido').innerHTML = art.contenido;
+    document.getElementById('modalArticulo').style.display = 'flex';
+}
+// Oculta la ventana
+function cerrarArticulo() {
+    document.getElementById('modalArticulo').style.display = 'none';
+}
 </script>
 </body>
 </html>

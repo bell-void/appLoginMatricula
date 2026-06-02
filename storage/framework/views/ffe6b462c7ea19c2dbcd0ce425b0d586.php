@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="bbn-dash">
 
     <!-- TOPBAR SIMPLE -->
@@ -8,9 +6,9 @@
         <div class="bbn-dash-top-left"></div>
         <div class="bbn-dash-top-right">
             <div class="bbn-dash-user">
-                <div class="bbn-dash-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div>
+                <div class="bbn-dash-avatar"><?php echo e(strtoupper(substr(Auth::user()->name, 0, 2))); ?></div>
                 <div class="user-info">
-                    <div class="bbn-dash-uname">{{ Auth::user()->name }}</div>
+                    <div class="bbn-dash-uname"><?php echo e(Auth::user()->name); ?></div>
                     <div class="bbn-dash-urole">Administrador</div>
                 </div>
             </div>
@@ -18,7 +16,7 @@
                onclick="event.preventDefault(); document.getElementById('logout-dash').submit();">
                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión
             </a>
-            <form id="logout-dash" action="{{ route('logout') }}" method="POST" style="display:none;">@csrf</form>
+            <form id="logout-dash" action="<?php echo e(route('logout')); ?>" method="POST" style="display:none;"><?php echo csrf_field(); ?></form>
         </div>
     </div>
 
@@ -31,8 +29,8 @@
         </div>
 
         <div class="welcome-message" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-            <p>Bienvenido, <strong>{{ explode(' ', Auth::user()->name)[0] }}</strong><br>
-            <span class="date-info">Panel de control · Semestre 2025-I · {{ now()->format('d/m/Y') }}</span></p>
+            <p>Bienvenido, <strong><?php echo e(explode(' ', Auth::user()->name)[0]); ?></strong><br>
+            <span class="date-info">Panel de control · Semestre 2025-I · <?php echo e(now()->format('d/m/Y')); ?></span></p>
         </div>
 
         <!-- TARJETAS DE ESTADÍSTICAS (más grandes) -->
@@ -40,28 +38,28 @@
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
                 <div class="stat-info">
-                    <div class="stat-number">{{ $totalAlumnos }}</div>
+                    <div class="stat-number"><?php echo e($totalAlumnos); ?></div>
                     <div class="stat-label">Alumnos</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-book-open"></i></div>
                 <div class="stat-info">
-                    <div class="stat-number">{{ $totalCursos }}</div>
+                    <div class="stat-number"><?php echo e($totalCursos); ?></div>
                     <div class="stat-label">Cursos</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-chalkboard-user"></i></div>
                 <div class="stat-info">
-                    <div class="stat-number">{{ $totalDocentes }}</div>
+                    <div class="stat-number"><?php echo e($totalDocentes); ?></div>
                     <div class="stat-label">Docentes</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-id-card"></i></div>
                 <div class="stat-info">
-                    <div class="stat-number">{{ $totalMatriculas }}</div>
+                    <div class="stat-number"><?php echo e($totalMatriculas); ?></div>
                     <div class="stat-label">Matrículas</div>
                 </div>
             </div>
@@ -94,17 +92,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($ultimasMatriculas as $matricula)
+                        <?php $__empty_1 = true; $__currentLoopData = $ultimasMatriculas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $matricula): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $matricula->alumno->nombre ?? '' }} {{ $matricula->alumno->apellido ?? '' }}</td>
-                            <td>{{ $matricula->curso->nombre_curso ?? $matricula->curso->nombre ?? 'N/A' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($matricula->fecha_matricula ?? $matricula->created_at)->format('d/m/Y') }}</td>
+                            <td><?php echo e($matricula->alumno->nombre ?? ''); ?> <?php echo e($matricula->alumno->apellido ?? ''); ?></td>
+                            <td><?php echo e($matricula->curso->nombre_curso ?? $matricula->curso->nombre ?? 'N/A'); ?></td>
+                            <td><?php echo e(\Carbon\Carbon::parse($matricula->fecha_matricula ?? $matricula->created_at)->format('d/m/Y')); ?></td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="3" class="text-center">No hay matrículas registradas</td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -123,74 +121,74 @@
 
         <!-- MÓDULOS VERTICALES (más grandes y con animación) -->
         <div class="dashboard-list" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-            <a href="{{ route('alumnos.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="100">
+            <a href="<?php echo e(route('alumnos.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="100">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-user-graduate"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Alumnos</div>
                     <div class="card-desc">Gestión de estudiantes</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalAlumnos }}</div>
+                    <div class="card-count"><?php echo e($totalAlumnos); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
 
-            <a href="{{ route('cursos.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="150">
+            <a href="<?php echo e(route('cursos.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="150">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-book-open"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Cursos</div>
                     <div class="card-desc">Catálogo académico</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalCursos }}</div>
+                    <div class="card-count"><?php echo e($totalCursos); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
 
-            <a href="{{ route('matriculas.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="200">
+            <a href="<?php echo e(route('matriculas.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="200">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-id-card"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Matrículas</div>
                     <div class="card-desc">Control de inscripciones</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalMatriculas }}</div>
+                    <div class="card-count"><?php echo e($totalMatriculas); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
 
-            <a href="{{ route('docentes.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="250">
+            <a href="<?php echo e(route('docentes.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="250">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-chalkboard-user"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Docentes</div>
                     <div class="card-desc">Personal académico</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalDocentes }}</div>
+                    <div class="card-count"><?php echo e($totalDocentes); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
 
-            <a href="{{ route('horarios.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="300">
+            <a href="<?php echo e(route('horarios.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="300">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-calendar-week"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Horarios</div>
                     <div class="card-desc">Programación académica</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalHorarios ?? \App\Models\Horario::count() }}</div>
+                    <div class="card-count"><?php echo e($totalHorarios ?? \App\Models\Horario::count()); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
 
-            <a href="{{ route('aulas.index') }}" class="dashboard-card" data-aos="fade-right" data-aos-delay="350">
+            <a href="<?php echo e(route('aulas.index')); ?>" class="dashboard-card" data-aos="fade-right" data-aos-delay="350">
                 <div class="card-left"><div class="card-icon"><i class="fas fa-door-open"></i></div></div>
                 <div class="card-center">
                     <div class="card-title">Aulas</div>
                     <div class="card-desc">Espacios educativos</div>
                 </div>
                 <div class="card-right">
-                    <div class="card-count">{{ $totalAulas ?? \App\Models\Aula::count() }}</div>
+                    <div class="card-count"><?php echo e($totalAulas ?? \App\Models\Aula::count()); ?></div>
                     <i class="fas fa-chevron-right card-arrow"></i>
                 </div>
             </a>
@@ -198,13 +196,14 @@
 
         <!-- BOTÓN VOLVER A LA PÁGINA PRINCIPAL -->
         <div class="back-to-home" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
-            <a href="{{ url('/') }}" class="btn-back">
+            <a href="<?php echo e(url('/')); ?>" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Volver a la página principal
             </a>
         </div>
 
         <div class="bbn-dash-footer">
-            Blue Butterfly Network · Sistema de Matrícula © {{ date('Y') }} · Laravel {{ app()->version() }} · PHP {{ phpversion() }}
+            Blue Butterfly Network · Sistema de Matrícula © <?php echo e(date('Y')); ?> · Laravel <?php echo e(app()->version()); ?> · PHP <?php echo e(phpversion()); ?>
+
         </div>
     </div>
 </div>
@@ -786,10 +785,10 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: @json($cursosLabels),
+                labels: <?php echo json_encode($cursosLabels, 15, 512) ?>,
                 datasets: [{
                     label: 'Alumnos matriculados',
-                    data: @json($cursosData),
+                    data: <?php echo json_encode($cursosData, 15, 512) ?>,
                     backgroundColor: 'rgba(124, 58, 237, 0.75)',
                     borderRadius: 12,
                     barPercentage: 0.65,
@@ -824,4 +823,5 @@
         document.getElementById('tipText').innerText = tips[Math.floor(Math.random() * tips.length)];
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\appLoginMatricula\resources\views/dashboard.blade.php ENDPATH**/ ?>

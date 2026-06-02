@@ -11,7 +11,9 @@ use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\AulaController;
-use App\Http\Controllers\DashboardController; // ← IMPORTANTE: Agregamos el controlador del dashboard
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChatbotController;
+ // ← AGREGAR ESTA LÍNEA
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +66,14 @@ Route::get('/auth/github/callback', [GithubController::class, 'callback'])->name
 */
 
 Route::middleware(['auth'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| CHATBOT (Asistente virtual)
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/chatbot/send', [ChatbotController::class, 'chat'])->name('chatbot.send');
 
 /*
 |--------------------------------------------------------------------------

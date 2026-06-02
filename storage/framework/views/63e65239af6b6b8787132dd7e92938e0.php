@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Blue Butterfly | Matrícula Académica</title>
     <meta name="description" content="Blue Butterfly – Sistema de gestión educativa con diseño moderno y matrícula online.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
@@ -224,7 +224,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-image: url('{{ asset("images/hero.png") }}');
+            background-image: url('<?php echo e(asset("images/hero.png")); ?>');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -467,7 +467,7 @@
         /* Blog */
         .blog-section {
             position: relative;
-            background-image: url('{{ asset("images/retro.png") }}');
+            background-image: url('<?php echo e(asset("images/retro.png")); ?>');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -738,8 +738,8 @@
         <a href="#faq" class="nav-link">FAQ</a>
     </div>
     <div class="nav-buttons">
-        <a href="{{ route('login') }}" class="btn-outline">Iniciar sesión</a>
-        <a href="{{ route('register') }}" class="btn-primary-black"><i class="fas fa-user-plus"></i> Crear cuenta</a>
+        <a href="<?php echo e(route('login')); ?>" class="btn-outline">Iniciar sesión</a>
+        <a href="<?php echo e(route('register')); ?>" class="btn-primary-black"><i class="fas fa-user-plus"></i> Crear cuenta</a>
     </div>
 </nav>
 
@@ -749,7 +749,7 @@
         <h1>La forma más inteligente de gestionar tu institución educativa</h1>
         <p>Automatiza matrículas, organiza cursos, controla horarios y obtén reportes en tiempo real. Miles de instituciones ya confían en Blue Butterfly.</p>
         <div class="hero-buttons">
-            <a href="{{ route('register') }}" class="btn-primary">Comenzar gratis <i class="fas fa-arrow-right"></i></a>
+            <a href="<?php echo e(route('register')); ?>" class="btn-primary">Comenzar gratis <i class="fas fa-arrow-right"></i></a>
             <a href="#" class="btn-outline" onclick="abrirModalDemo(); return false;">Ver demo <i class="fas fa-play"></i></a>
         </div>
         <div class="hero-stats">
@@ -829,12 +829,12 @@
         <p class="section-sub">Módulos integrados para una gestión completa.</p>
     </div>
     <div class="features-grid">
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="100"><div class="feature-icon"><i class="fas fa-user-graduate"></i></div><div class="feature-title">Gestión de Alumnos</div><div class="feature-desc">Registra y consulta el historial completo.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="150"><div class="feature-icon"><i class="fas fa-book-open"></i></div><div class="feature-title">Catálogo de Cursos</div><div class="feature-desc">Administra cursos, créditos y descripciones.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="200"><div class="feature-icon"><i class="fas fa-id-card"></i></div><div class="feature-title">Proceso de Matrícula</div><div class="feature-desc">Matricula alumnos con control de horarios.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="250"><div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div><div class="feature-title">Docentes</div><div class="feature-desc">Registro por especialidad y asignación.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="300"><div class="feature-icon"><i class="fas fa-calendar-week"></i></div><div class="feature-title">Horarios Académicos</div><div class="feature-desc">Configura días, horas y aulas sin cruces.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="350"><div class="feature-icon"><i class="fas fa-door-open"></i></div><div class="feature-title">Aulas</div><div class="feature-desc">Gestiona espacios físicos y disponibilidad.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="100"><div class="feature-icon"><i class="fas fa-user-graduate"></i></div><div class="feature-title">Gestión de Alumnos</div><div class="feature-desc">Registra y consulta el historial completo.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="150"><div class="feature-icon"><i class="fas fa-book-open"></i></div><div class="feature-title">Catálogo de Cursos</div><div class="feature-desc">Administra cursos, créditos y descripciones.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="200"><div class="feature-icon"><i class="fas fa-id-card"></i></div><div class="feature-title">Proceso de Matrícula</div><div class="feature-desc">Matricula alumnos con control de horarios.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="250"><div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div><div class="feature-title">Docentes</div><div class="feature-desc">Registro por especialidad y asignación.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="300"><div class="feature-icon"><i class="fas fa-calendar-week"></i></div><div class="feature-title">Horarios Académicos</div><div class="feature-desc">Configura días, horas y aulas sin cruces.</div></a>
+        <a href="<?php echo e(route('login')); ?>" class="feature-card" data-aos="flip-left" data-aos-delay="350"><div class="feature-icon"><i class="fas fa-door-open"></i></div><div class="feature-title">Aulas</div><div class="feature-desc">Gestiona espacios físicos y disponibilidad.</div></a>
     </div>
 </section>
 
@@ -882,7 +882,7 @@
     <div class="contact-grid">
         <div class="contact-form" data-aos="fade-right" data-aos-delay="100">
             <form action="#" method="POST">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <input type="text" class="form-control" placeholder="Nombre completo" required>
                 <input type="email" class="form-control" placeholder="Correo electrónico" required>
                 <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
@@ -922,7 +922,7 @@
         <div class="footer-col"><h4>Compañía</h4><a href="#">Acerca de</a><a href="#">Equipo</a><a href="#">Contacto</a></div>
         <div class="footer-col"><h4>Legal</h4><a href="#">Privacidad</a><a href="#">Términos</a><div class="footer-social"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
     </div>
-    <div class="footer-bottom">© {{ date('Y') }} Blue Butterfly Network — Sistema de Matrícula Académica. contacto: soporte.bluebutterfly@gmail.com</div>
+    <div class="footer-bottom">© <?php echo e(date('Y')); ?> Blue Butterfly Network — Sistema de Matrícula Académica. contacto: soporte.bluebutterfly@gmail.com</div>
 </footer>
 
 <!-- Scripts -->
@@ -967,15 +967,15 @@
                     <div style="position:relative; overflow:hidden;">
                         <div id="slides" style="display:flex; transition:transform 0.4s ease;">
                             <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide1.PNG') }}" alt="Dashboard 1" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
+                                <img src="<?php echo e(asset('imagenes/demo/slide1.PNG')); ?>" alt="Dashboard 1" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
                                 <p style="margin-top:1rem;">Panel principal</p>
                             </div>
                             <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide2.PNG') }}" alt="Dashboard 2" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
+                                <img src="<?php echo e(asset('imagenes/demo/slide2.PNG')); ?>" alt="Dashboard 2" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
                                 <p style="margin-top:1rem;">Gestión de cursos</p>
                             </div>
                             <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide3.PNG') }}" alt="Dashboard 3" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
+                                <img src="<?php echo e(asset('imagenes/demo/slide3.PNG')); ?>" alt="Dashboard 3" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
                                 <p style="margin-top:1rem;">Administración de aulas</p>
                             </div>
                         </div>
@@ -984,7 +984,7 @@
                     </div>
                     <div id="dots" style="display:flex; justify-content:center; gap:10px; padding:1rem 0;"></div>
                     <div style="padding:0 1.5rem 1.8rem; text-align:center;">
-                        <a href="{{ route('register') }}" class="btn-primary" style="display:inline-block;">Comenzar ahora →</a>
+                        <a href="<?php echo e(route('register')); ?>" class="btn-primary" style="display:inline-block;">Comenzar ahora →</a>
                     </div>
                 </div>
             </div>
@@ -1351,4 +1351,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 </body>
-</html>
+</html><?php /**PATH C:\xampp\htdocs\appLoginMatricula\resources\views/welcome.blade.php ENDPATH**/ ?>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+// ── CONTROLLERS CRUD ─────────────────────────────────────────
 use App\Http\Controllers\Api\AlumnoController;
 use App\Http\Controllers\Api\AulaController;
 use App\Http\Controllers\Api\CursoController;
@@ -10,28 +11,35 @@ use App\Http\Controllers\Api\MatriculaController;
 use App\Http\Controllers\Api\PagoController;
 use App\Http\Controllers\Api\ProfesorController;
 
-// ── ALUMNOS ──────────────────────────────────────────────────
+// ── CHATBOT ───────────────────────────────────────────────────
+use App\Http\Controllers\ChatbotController;
+
+// ──────────────────────────────────────────────────────────────
+// ALUMNOS
 Route::apiResource('alumno', AlumnoController::class);
 
-// ── AULAS ────────────────────────────────────────────────────
+// AULAS
 Route::apiResource('aula', AulaController::class);
 
-// ── PROFESORES / DOCENTES ─────────────────────────────────────
+// PROFESORES
 Route::apiResource('profesor', ProfesorController::class);
 
-// ── CURSOS ───────────────────────────────────────────────────
+// CURSOS
 Route::apiResource('curso', CursoController::class);
 
-// ── HORARIOS ─────────────────────────────────────────────────
+// HORARIOS
 Route::apiResource('horario', HorarioController::class);
 
-// ── MATRÍCULAS ────────────────────────────────────────────────
+// MATRÍCULAS
 Route::apiResource('matricula', MatriculaController::class);
 
-// ── PAGOS ────────────────────────────────────────────────────
+// PAGOS
 Route::apiResource('pago', PagoController::class);
 
-// Ruta extra: todos los pagos de una matrícula específica
-// GET /api/pago/por-matricula/{id_matricula}
+// Pago por matrícula
 Route::get('pago/por-matricula/{id_matricula}', [PagoController::class, 'porMatricula'])
      ->name('pago.por-matricula');
+
+
+// 🤖 CHATBOT IA (GROQ)
+Route::post('/chat', [ChatbotController::class, 'chat']);

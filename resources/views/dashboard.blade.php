@@ -22,12 +22,10 @@
     .navbar:first-of-type {
         display: none !important;
     }
-    /* Eliminar cualquier espacio reservado */
     body {
         padding-top: 0 !important;
         margin-top: 0 !important;
     }
-    /* Asegurar que el contenido del dashboard ocupe todo el ancho */
     .bbn-dash {
         margin-top: 0;
         padding-top: 0;
@@ -36,7 +34,7 @@
 
 <div class="bbn-dash">
 
-    <!-- TOPBAR SIMPLIFICADA (sin nombre de usuario) -->
+    <!-- TOPBAR SIMPLIFICADA -->
     <div class="bbn-dash-top">
         <div class="bbn-dash-top-left">
             <div class="brand-mini">
@@ -61,7 +59,7 @@
 
     <div class="bbn-dash-body">
 
-        <!-- ========== HERO CON VIDEO ========== -->
+        <!-- HERO CON VIDEO -->
         <div class="hero-section" data-aos="fade-up" data-aos-duration="1000">
             <video class="hero-video-bg" autoplay muted loop playsinline>
                 <source src="{{ asset('videos/final.mp4') }}" type="video/mp4">
@@ -149,6 +147,7 @@
             <div class="recent-matriculas-section">
                 <div class="section-header-sm">
                     <div class="header-icon">
+                        <!-- Usamos la imagen matricula.png en lugar de ícono -->
                         <img src="{{ asset('images/matricula.png') }}" alt="Matrículas" class="header-icon-img" onerror="this.src='https://placehold.co/56x56/A78BFA/white?text=M'">
                     </div>
                     <div>
@@ -183,7 +182,7 @@
                                 <td>{{ \Carbon\Carbon::parse($matricula->fecha_matricula ?? $matricula->created_at)->format('d/m/Y') }}</td>
                             </tr>
                             @empty
-                            <tr><td colspan="3" class="text-center">No hay matrículas registradas<\/td></tr>
+                            <tr><td colspan="3" class="text-center">No hay matrículas registradas</td></tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -210,19 +209,19 @@
             <div class="modules-grid">
                 @php
                     $modulos = [
-                        ['mod'=>'alumnos', 'titulo'=>'Alumnos', 'desc'=>'Gestión completa de estudiantes', 'ruta'=>route('alumnos.index'), 'pdf'=>route('pdf.alumnos'), 'total'=>$totalAlumnos ?? 0],
-                        ['mod'=>'cursos', 'titulo'=>'Cursos', 'desc'=>'Catálogo académico', 'ruta'=>route('cursos.index'), 'pdf'=>route('pdf.cursos'), 'total'=>$totalCursos ?? 0],
-                        ['mod'=>'matriculas', 'titulo'=>'Matrículas', 'desc'=>'Control de inscripciones', 'ruta'=>route('matriculas.index'), 'pdf'=>route('pdf.matriculas'), 'total'=>$totalMatriculas ?? 0],
-                        ['mod'=>'docentes', 'titulo'=>'Docentes', 'desc'=>'Personal académico', 'ruta'=>route('docentes.index'), 'pdf'=>route('pdf.docentes'), 'total'=>$totalDocentes ?? 0],
-                        ['mod'=>'horarios', 'titulo'=>'Horarios', 'desc'=>'Programación académica', 'ruta'=>route('horarios.index'), 'pdf'=>route('pdf.horarios'), 'total'=>$totalHorarios ?? 0],
-                        ['mod'=>'aulas', 'titulo'=>'Aulas', 'desc'=>'Espacios educativos', 'ruta'=>route('aulas.index'), 'pdf'=>route('pdf.aulas'), 'total'=>$totalAulas ?? 0],
+                        ['mod'=>'alumnos', 'titulo'=>'Alumnos', 'desc'=>'Gestión completa de estudiantes', 'ruta'=>route('alumnos.index'), 'pdf'=>route('pdf.alumnos'), 'total'=>$totalAlumnos ?? 0, 'img'=>'alumnos.png'],
+                        ['mod'=>'cursos', 'titulo'=>'Cursos', 'desc'=>'Catálogo académico', 'ruta'=>route('cursos.index'), 'pdf'=>route('pdf.cursos'), 'total'=>$totalCursos ?? 0, 'img'=>'cursos.png'],
+                        ['mod'=>'matriculas', 'titulo'=>'Matrículas', 'desc'=>'Control de inscripciones', 'ruta'=>route('matriculas.index'), 'pdf'=>route('pdf.matriculas'), 'total'=>$totalMatriculas ?? 0, 'img'=>'matricula.png'],
+                        ['mod'=>'docentes', 'titulo'=>'Docentes', 'desc'=>'Personal académico', 'ruta'=>route('docentes.index'), 'pdf'=>route('pdf.docentes'), 'total'=>$totalDocentes ?? 0, 'img'=>'docentes.png'],
+                        ['mod'=>'horarios', 'titulo'=>'Horarios', 'desc'=>'Programación académica', 'ruta'=>route('horarios.index'), 'pdf'=>route('pdf.horarios'), 'total'=>$totalHorarios ?? 0, 'img'=>'horarios.png'],
+                        ['mod'=>'aulas', 'titulo'=>'Aulas', 'desc'=>'Espacios educativos', 'ruta'=>route('aulas.index'), 'pdf'=>route('pdf.aulas'), 'total'=>$totalAulas ?? 0, 'img'=>'aulas.png'],
                     ];
                 @endphp
                 @foreach($modulos as $mod)
                 <div class="module-card" data-module="{{ $mod['mod'] }}" data-route="{{ $mod['ruta'] }}" data-title="{{ $mod['titulo'] }}" data-desc="{{ $mod['desc'] }}" data-count="{{ $mod['total'] }}">
                     <div class="module-card-inner">
                         <div class="module-icon">
-                            <img src="{{ asset('images/'.$mod['mod'].'.png') }}" alt="{{ $mod['titulo'] }}" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text={{ substr($mod['titulo'],0,1) }}'">
+                            <img src="{{ asset('images/'.$mod['img']) }}" alt="{{ $mod['titulo'] }}" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text={{ substr($mod['titulo'],0,1) }}'">
                         </div>
                         <div class="module-info">
                             <h3 class="module-title">{{ $mod['titulo'] }}</h3>
@@ -254,7 +253,7 @@
     </div>
 </div>
 
-<!-- MODAL INFORMATIVO -->
+<!-- MODAL INFORMATIVO (sin cambios) -->
 <div id="moduleModal" class="module-modal">
     <div class="module-modal-content">
         <div class="module-modal-header">
@@ -364,7 +363,7 @@
 .bbn-dash-logout:hover { background: #dc2626; color: white; transform: translateY(-2px); }
 .bbn-dash-body { padding: 56px 64px; max-width: 1600px; margin: 0 auto; }
 
-/* ========== HERO CON VIDEO ========== */
+/* HERO */
 .hero-section {
     position: relative;
     text-align: center;
@@ -616,6 +615,7 @@
     justify-content: center;
 }
 .module-icon img { width: 100%; height: 100%; object-fit: cover; }
+.module-icon i { font-size: 2.5rem; color: #A78BFA; }
 .module-info { flex: 1; }
 .module-title { font-size: 1.8rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; margin-bottom: 8px; }
 .module-desc { font-size: 0.95rem; color: #a0a0b0; }
@@ -668,7 +668,7 @@
 .bbn-dash-footer p { font-size: 0.85rem; color: #808090; }
 .tech-stack { margin-top: 10px; font-size: 0.75rem !important; font-family: monospace; color: #606070; }
 
-/* MODAL OSCURO */
+/* MODAL OSCURO (código completo, por brevedad se mantiene igual) */
 .module-modal {
     display: none;
     position: fixed;
@@ -753,7 +753,7 @@
 .btn-primary-modal:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(167,139,250,0.4); }
 .text-center { text-align: center; }
 
-/* CHATBOT OSCURO */
+/* CHATBOT OSCURO (código completo) */
 .chatbot-float {
     position: fixed;
     bottom: 32px;
@@ -970,7 +970,7 @@
     });
 </script>
 
-<!-- CHATBOT -->
+<!-- CHATBOT (mismo código) -->
 <div class="chatbot-float" id="chatbotFloat"><i class="fas fa-robot"></i><div class="chatbot-pulse"></div></div>
 <div class="chatbot-modal" id="chatbotModal">
     <div class="chatbot-modal-header"><div class="chatbot-header-info"><i class="fas fa-robot"></i><div><h4>Asistente Blue Butterfly</h4><p>Responde tus dudas</p></div></div><button class="chatbot-close" id="chatbotClose">&times;</button></div>

@@ -22,20 +22,18 @@
                 @error('creditos')<span class="error-msg">{{ $message }}</span>@enderror
             </div>
 
-            <!-- Campo docente (solo si tu tabla tiene id_docente y deseas mostrarlo) -->
-            @php $mostrarDocente = false; @endphp
-            @if($mostrarDocente && isset($docentes))
             <div class="form-group">
                 <label for="id_docente">Docente *</label>
                 <select id="id_docente" name="id_docente" required>
                     <option value="">Seleccione un docente</option>
                     @foreach($docentes as $docente)
-                        <option value="{{ $docente->id_docente }}">{{ $docente->nombre }} {{ $docente->apellido }}</option>
+                        <option value="{{ $docente->id_docente }}" {{ old('id_docente') == $docente->id_docente ? 'selected' : '' }}>
+                            {{ $docente->nombre }} {{ $docente->apellido }}
+                        </option>
                     @endforeach
                 </select>
                 @error('id_docente')<span class="error-msg">{{ $message }}</span>@enderror
             </div>
-            @endif
 
             <div class="form-group">
                 <label for="descripcion">Descripción</label>

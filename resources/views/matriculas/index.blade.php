@@ -3,13 +3,7 @@
 @section('content')
 <div class="bbn-list-container">
     <div class="list-header">
-        <a href="{{ route('dashboard') }}" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Volver al Dashboard
-        </a>
         <h1>Matrículas</h1>
-        <a href="{{ route('matriculas.create') }}" class="btn-new">
-            <i class="fas fa-plus"></i> Nueva matrícula
-        </a>
     </div>
 
     <!-- Tarjetas de estadísticas -->
@@ -64,11 +58,11 @@
             <tbody>
                 @forelse($matriculas as $matricula)
                 <tr>
-                    <td data-label="ID">{{ $matricula->id_matricula }}</td>
-                    <td data-label="Alumno">{{ $matricula->alumno->nombre ?? 'N/A' }} {{ $matricula->alumno->apellido ?? '' }}</td>
-                    <td data-label="Curso">{{ $matricula->curso->nombre_curso ?? 'N/A' }}</td>
-                    <td data-label="Fecha">{{ \Carbon\Carbon::parse($matricula->fecha_matricula)->format('d/m/Y') }}</td>
-                    <td data-label="Estado">
+                    <td>{{ $matricula->id_matricula }}</td>
+                    <td>{{ $matricula->alumno->nombre ?? 'N/A' }} {{ $matricula->alumno->apellido ?? '' }}</td>
+                    <td>{{ $matricula->curso->nombre_curso ?? 'N/A' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($matricula->fecha_matricula)->format('d/m/Y') }}</td>
+                    <td class="estado-cell">
                         <span class="estado-badge 
                             @if($matricula->estado == 'Activo') estado-activo
                             @elseif($matricula->estado == 'Pendiente') estado-pendiente
@@ -104,6 +98,15 @@
     <div class="pagination-wrapper">
         {{ $matriculas->links() }}
     </div>
+
+    <div class="list-footer">
+        <a href="{{ route('dashboard') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+        <a href="{{ route('matriculas.create') }}" class="btn-new">
+            <i class="fas fa-plus"></i> Nueva matrícula
+        </a>
+    </div>
 </div>
 
 <style>
@@ -111,88 +114,60 @@
 
     .bbn-list-container {
         padding: 2rem;
-        background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2e 100%);
+        background: #ffffff;
         min-height: 100vh;
         font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .list-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1rem;
+        text-align: center;
         margin-bottom: 2rem;
+        width: 100%;
     }
 
     .list-header h1 {
         font-family: 'Space Mono', monospace;
         font-size: 2rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #fff, #a78bfa);
+        background: linear-gradient(135deg, #1e293b, #7c3aed);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         margin: 0;
-    }
-
-    .btn-back, .btn-new {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 18px;
-        border-radius: 40px;
-        font-family: 'Space Mono', monospace;
-        font-size: 0.85rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.2s;
-    }
-
-    .btn-back {
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(168,85,247,0.3);
-        color: #a78bfa;
-    }
-
-    .btn-back:hover {
-        background: rgba(168,85,247,0.15);
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    .btn-new {
-        background: #7c3aed;
-        color: white;
-        border: none;
-    }
-
-    .btn-new:hover {
-        background: #6d28d9;
-        transform: translateY(-2px);
+        display: inline-block;
     }
 
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
+        width: 100%;
+        max-width: 1200px;
     }
 
     .stat-card {
-        background: rgba(20,20,35,0.6);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
         padding: 1rem;
         display: flex;
         align-items: center;
         gap: 1rem;
+        transition: all 0.2s;
+    }
+
+    .stat-card:hover {
+        border-color: #c4b5fd;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .stat-icon {
         font-size: 1.8rem;
-        color: #a78bfa;
+        color: #7c3aed;
     }
 
     .stat-info {
@@ -204,68 +179,74 @@
         font-size: 1.6rem;
         font-weight: 700;
         font-family: 'Space Mono', monospace;
-        color: #a78bfa;
+        color: #1e293b;
     }
 
     .stat-label {
         font-size: 0.7rem;
-        color: #94a3b8;
+        color: #64748b;
         letter-spacing: 1px;
     }
 
     .search-bar {
         margin-bottom: 1.5rem;
+        width: 100%;
+        max-width: 1200px;
     }
 
     .search-input {
         width: 100%;
         max-width: 320px;
-        background: rgba(0,0,0,0.4);
-        border: 1px solid rgba(255,255,255,0.15);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         border-radius: 40px;
         padding: 10px 18px;
-        color: white;
+        color: #1e293b;
         font-family: 'Space Mono', monospace;
         outline: none;
     }
 
     .search-input:focus {
-        border-color: #a78bfa;
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124,58,237,0.1);
     }
 
     .table-responsive {
+        width: 100%;
+        max-width: 1200px;
         overflow-x: auto;
         border-radius: 24px;
-        background: rgba(20,20,35,0.6);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: #ffffff;
+        border: 1px solid #e9e9ef;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+        margin-bottom: 1.5rem;
     }
 
     .bbn-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 0.9rem;
-        color: #e2e8f0;
+        color: #1e293b;
     }
 
     .bbn-table th {
         text-align: left;
         padding: 16px 20px;
-        background: rgba(0,0,0,0.3);
+        background: #f8fafc;
         font-family: 'Space Mono', monospace;
         font-weight: 600;
-        color: #c4b5fd;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: #4c1d95;
+        border-bottom: 1px solid #e9d5ff;
     }
 
     .bbn-table td {
         padding: 14px 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid #f1f5f9;
         vertical-align: middle;
     }
 
     .bbn-table tr:hover td {
-        background: rgba(255,255,255,0.03);
+        background: #faf5ff;
     }
 
     .empty-row {
@@ -274,34 +255,8 @@
         padding: 40px !important;
     }
 
-    .actions {
-        display: flex;
-        gap: 8px;
-    }
-
-    .btn-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.08);
-        color: #cbd5e1;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .btn-icon:hover {
-        background: rgba(255,255,255,0.18);
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    .delete-form {
-        display: inline;
+    .estado-cell {
+        vertical-align: middle;
     }
 
     .estado-badge {
@@ -315,23 +270,57 @@
 
     .estado-activo {
         background: rgba(34,197,94,0.15);
-        color: #4ade80;
+        color: #10b981;
     }
 
     .estado-pendiente {
         background: rgba(245,158,11,0.15);
-        color: #fbbf24;
+        color: #f59e0b;
     }
 
     .estado-retirado {
         background: rgba(239,68,68,0.15);
-        color: #f87171;
+        color: #ef4444;
+    }
+
+    .actions {
+        display: flex;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #f8fafc;
+        color: #475569;
+        text-decoration: none;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+        background: #e9d5ff;
+        color: #6d28d9;
+        transform: translateY(-2px);
+        border-color: #c4b5fd;
+    }
+
+    .delete-form {
+        display: inline;
     }
 
     .pagination-wrapper {
-        margin-top: 2rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
         display: flex;
         justify-content: center;
+        width: 100%;
     }
 
     .pagination-wrapper .pagination {
@@ -339,9 +328,9 @@
     }
 
     .pagination-wrapper .page-item .page-link {
-        background: rgba(20,20,35,0.8);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: #e2e8f0;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: #475569;
         border-radius: 12px;
         padding: 8px 14px;
         font-family: 'Space Mono', monospace;
@@ -355,24 +344,79 @@
     }
 
     .pagination-wrapper .page-link:hover {
-        background: rgba(124,58,237,0.5);
-        color: white;
+        background: #e9d5ff;
+        color: #6d28d9;
         transform: translateY(-1px);
     }
 
+    .list-footer {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .btn-back, .btn-new {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        border-radius: 40px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-back {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        color: #475569;
+    }
+
+    .btn-back:hover {
+        background: #e2e8f0;
+        color: #1e293b;
+        transform: translateY(-2px);
+    }
+
+    .btn-new {
+        background: #7c3aed;
+        color: white;
+        border: none;
+        box-shadow: 0 2px 8px rgba(124,58,237,0.2);
+    }
+
+    .btn-new:hover {
+        background: #6d28d9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(124,58,237,0.3);
+    }
+
     @media (max-width: 768px) {
-        .bbn-list-container { padding: 1rem; }
-        .list-header { flex-direction: column; align-items: stretch; text-align: center; }
-        .stats-grid { grid-template-columns: 1fr; }
-        .bbn-table th, .bbn-table td { padding: 10px 12px; font-size: 0.8rem; }
-        .actions { justify-content: center; }
+        .bbn-list-container {
+            padding: 1rem;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        .list-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .btn-back, .btn-new {
+            justify-content: center;
+        }
     }
 </style>
 
 <script>
     document.getElementById('searchMatricula').addEventListener('keyup', function() {
         let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll('.bbn-table tbody tr');
+        let rows = document.querySelectorAll('#matriculas-table tbody tr');
         rows.forEach(row => {
             let text = row.innerText.toLowerCase();
             row.style.display = text.includes(filter) ? '' : 'none';

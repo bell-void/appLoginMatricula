@@ -3,11 +3,7 @@
 @section('content')
 <div class="bbn-create-container">
     <div class="create-header">
-        <a href="{{ route('dashboard') }}" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Volver al Dashboard
-        </a>
         <h1>Registrar Curso</h1>
-        <div></div> <!-- spacer -->
     </div>
 
     <div class="create-card">
@@ -26,7 +22,7 @@
                 @error('creditos')<span class="error-msg">{{ $message }}</span>@enderror
             </div>
 
-            <!-- Campo docente (opcional, solo si tu tabla tiene id_docente) -->
+            <!-- Campo docente (solo si tu tabla tiene id_docente y deseas mostrarlo) -->
             @php $mostrarDocente = false; @endphp
             @if($mostrarDocente && isset($docentes))
             <div class="form-group">
@@ -64,7 +60,7 @@
 
     .bbn-create-container {
         padding: 2rem;
-        background: linear-gradient(145deg, #0a0a0f 0%, #1a1a2e 100%);
+        background: #ffffff;
         min-height: 100vh;
         font-family: 'Inter', sans-serif;
         display: flex;
@@ -75,7 +71,7 @@
     .create-header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         width: 100%;
         max-width: 700px;
         margin-bottom: 2rem;
@@ -83,45 +79,23 @@
 
     .create-header h1 {
         font-family: 'Space Mono', monospace;
-        font-size: 1.8rem;
+        font-size: 2rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #fff, #a78bfa);
+        background: linear-gradient(135deg, #1e293b, #7c3aed);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         margin: 0;
     }
 
-    .btn-back {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 18px;
-        border-radius: 40px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(168,85,247,0.3);
-        color: #a78bfa;
-        text-decoration: none;
-        font-family: 'Space Mono', monospace;
-        font-size: 0.85rem;
-        transition: all 0.2s;
-    }
-
-    .btn-back:hover {
-        background: rgba(168,85,247,0.15);
-        color: white;
-        transform: translateY(-2px);
-    }
-
     .create-card {
-        background: rgba(20, 20, 35, 0.6);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 32px;
+        background: #ffffff;
+        border: 1px solid #e9e9ef;
+        border-radius: 24px;
         padding: 2rem;
         width: 100%;
         max-width: 700px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.03);
     }
 
     .create-form {
@@ -140,19 +114,19 @@
         font-family: 'Space Mono', monospace;
         font-size: 0.8rem;
         font-weight: 600;
-        color: #c4b5fd;
+        color: #4c1d95;
         letter-spacing: 0.5px;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
-        background: rgba(0,0,0,0.4);
-        border: 1px solid rgba(255,255,255,0.15);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         border-radius: 14px;
         padding: 12px 16px;
         font-size: 0.9rem;
-        color: white;
+        color: #1e293b;
         transition: all 0.2s;
         outline: none;
         font-family: 'Inter', sans-serif;
@@ -161,19 +135,19 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-        border-color: #a78bfa;
-        box-shadow: 0 0 0 2px rgba(167,139,250,0.2);
-        background: rgba(0,0,0,0.6);
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124,58,237,0.1);
+        background: #ffffff;
     }
 
     .form-group select option {
-        background: #1a1a2e;
-        color: white;
+        background: #ffffff;
+        color: #1e293b;
     }
 
     .error-msg {
         font-size: 0.7rem;
-        color: #f87171;
+        color: #dc2626;
         margin-top: 4px;
     }
 
@@ -203,23 +177,24 @@
     .btn-submit {
         background: #7c3aed;
         color: white;
-        box-shadow: 0 2px 8px rgba(124,58,237,0.3);
+        box-shadow: 0 2px 8px rgba(124,58,237,0.2);
     }
 
     .btn-submit:hover {
         background: #6d28d9;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(124,58,237,0.4);
+        box-shadow: 0 4px 12px rgba(124,58,237,0.3);
     }
 
     .btn-cancel {
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.15);
-        color: #e2e8f0;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        color: #475569;
     }
 
     .btn-cancel:hover {
-        background: rgba(255,255,255,0.15);
+        background: #e2e8f0;
+        color: #1e293b;
         transform: translateY(-2px);
     }
 
@@ -228,9 +203,7 @@
             padding: 1rem;
         }
         .create-header {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
         .create-card {
             padding: 1.5rem;

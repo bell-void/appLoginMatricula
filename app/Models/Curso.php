@@ -12,18 +12,19 @@ class Curso extends Model
         'creditos', 'id_docente'
     ];
 
+    // ✅ CORRECCIÓN: Apunta al modelo correcto (Docente, no Profesor)
     public function profesor()
     {
-        return $this->belongsTo(Profesor::class, 'id_docente');
+        return $this->belongsTo(Docente::class, 'id_docente', 'id_docente');
     }
 
     public function horarios()
     {
-        return $this->hasMany(Horario::class, 'id_curso');
+        return $this->hasMany(Horario::class, 'id_curso', 'id_curso');
     }
 
     public function matriculas()
     {
-        return $this->hasMany(Matricula::class, 'id_curso');
+        return $this->hasMany(Matricula::class, 'id_curso', 'id_curso');
     }
 }

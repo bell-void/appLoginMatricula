@@ -4,122 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Blue Butterfly | Matrícula Académica</title>
-    <meta name="description" content="Blue Butterfly – Sistema de gestión educativa con diseño moderno y matrícula online.">
+    <title>Blue Butterfly | Gestión Académica Premium</title>
+    <meta name="description" content="Blue Butterfly – Sistema de gestión académica de alto rendimiento para instituciones educativas modernas.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- AOS CSS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <style>
-        /* ===== TODOS TUS ESTILOS ACTUALES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            color: #111827;
+            background: #0A0A0A;
+            color: #E5E5E5;
             line-height: 1.5;
             scroll-behavior: smooth;
-            font-size: 18px;
+            font-size: 16px;
         }
-
         :root {
-            --primary: #8b5cf6;
-            --primary-light: #a78bfa;
-            --primary-soft: #c4b5fd;
-            --primary-bg: #f5f3ff;
-            --text-dark: #111827;
-            --text-muted: #4b5563;
-            --border-light: #e9d5ff;
-            --black: #000000;
+            --primary: #6D28D9;
+            --primary-light: #8B5CF6;
+            --primary-lighter: #A78BFA;
+            --primary-dark: #5B21B6;
+            --accent: #A78BFA;
+            --gray-500: #9CA3AF;
+            --gray-700: #D1D5DB;
+            --border: #2A2A2A;
+            --success: #10B981;
+            --black: #0A0A0A;
+            --black-card: #111111;
+            --black-light: #1A1A1A;
         }
+        .section-padding { padding: 5rem 2rem; }
 
-        .section-padding {
-            padding: 6rem 2rem;
-        }
-
-        .section-title {
-            font-family: 'Fraunces', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #111827 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .section-sub {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 3rem auto;
-        }
-
-        /* Animaciones hover personalizadas */
-        .benefit-card, .feature-card, .blog-card {
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .benefit-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 40px -12px rgba(139,92,246,0.25);
-        }
-        .feature-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.1);
-        }
-        .blog-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
-        }
-        .benefit-icon, .feature-icon, .blog-img i {
-            transition: all 0.3s ease;
-        }
-        .benefit-card:hover .benefit-icon {
-            transform: scale(1.15) rotate(5deg);
-            color: var(--primary-light);
-        }
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2) rotate(3deg);
-        }
-        .blog-card:hover .blog-img i {
-            transform: scale(1.2);
-            color: var(--primary);
-        }
-        .btn-primary, .btn-outline, .btn-primary-black {
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .btn-primary:hover, .btn-outline:hover, .btn-primary-black:hover {
-            transform: translateY(-3px) scale(1.02);
-        }
-        .hero-stats div {
-            transition: all 0.3s ease;
-        }
-        .hero-stats div:hover {
-            transform: translateY(-5px);
-        }
-        .footer-col a {
-            transition: all 0.2s;
-        }
-        .footer-col a:hover {
-            transform: translateX(5px);
-            color: var(--primary-light);
-        }
-
-        /* ===== NAVBAR ===== */
+        /* NAVBAR */
         .navbar-custom {
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(10,10,10,0.85);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid rgba(139,92,246,0.2);
             padding: 0 2rem;
-            height: 80px;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -127,602 +49,357 @@
             top: 0;
             z-index: 1000;
         }
-        .logo-placeholder {
-            width: 100px;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin: 0 auto;
-        }
-        .nav-link {
-            padding: 0.6rem 1.2rem;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            text-decoration: none;
-            border-radius: 2rem;
-            transition: all 0.2s;
-        }
-        .nav-link:hover {
-            background: var(--primary-bg);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        .btn-outline {
-            border: 1.5px solid var(--black);
-            padding: 0.6rem 1.5rem;
-            border-radius: 3rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--black);
-            background: transparent;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        .btn-outline:hover {
-            background: var(--black);
-            color: white;
-            border-color: var(--black);
-            transform: translateY(-2px);
-        }
-        .btn-primary-black {
-            background: var(--black);
-            padding: 0.6rem 1.8rem;
-            border-radius: 3rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.25s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .btn-primary-black:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.3);
-            background: #1a1a1a;
-        }
-        .btn-primary {
-            background: linear-gradient(105deg, var(--primary), var(--primary-light));
-            padding: 0.6rem 1.8rem;
-            border-radius: 3rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.25s;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px -8px rgba(139, 92, 246, 0.4);
-        }
+        .logo-placeholder { width: 100px; }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; margin: 0 auto; }
+        .nav-link { padding: 0.5rem 1.2rem; font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; border-radius: 2rem; transition: all 0.2s; }
+        .nav-link:hover { background: rgba(139,92,246,0.15); color: var(--primary-light); }
+        .btn-outline { border: 1.5px solid var(--primary-light); padding: 0.5rem 1.3rem; border-radius: 3rem; font-size: 0.85rem; font-weight: 600; color: var(--primary-light); background: transparent; transition: all 0.2s; text-decoration: none; }
+        .btn-outline:hover { background: var(--primary-light); color: var(--black); border-color: var(--primary-light); }
+        .btn-primary-black { background: var(--primary-light); padding: 0.5rem 1.8rem; border-radius: 3rem; font-size: 0.85rem; font-weight: 600; color: var(--black); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; }
+        .btn-primary-black:hover { transform: translateY(-2px); background: var(--primary-lighter); color: var(--black); }
+        .btn-primary { background: linear-gradient(105deg, var(--primary), var(--primary-light)); padding: 0.5rem 1.8rem; border-radius: 3rem; font-size: 0.85rem; font-weight: 600; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn-primary:hover { transform: translateY(-2px); background: linear-gradient(105deg, var(--primary-light), var(--primary)); }
 
-        /* ===== HERO ===== */
+        /* HERO CON VIDEO DE FONDO */
         .hero {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 2rem;
-            padding: 5rem 2rem 6rem;
+            gap: 3rem;
+            padding: 5rem 3rem 6rem;
             flex-wrap: wrap;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a1a3a 100%);
             isolation: isolate;
             border-radius: 2rem;
             margin: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 600px;
         }
-        .hero::after {
-            content: '';
+        
+        .hero-video {
             position: absolute;
-            inset: 0;
-            background-image: url('{{ asset("images/hero.png") }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.35;
-            z-index: 1;
-            pointer-events: none;
-            border-radius: 2rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 1;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-            border-radius: 2rem;
-        }
+        
         .hero-left, .hero-right {
             position: relative;
             z-index: 3;
         }
-        .hero-left {
-            flex: 1.2;
-            max-width: 600px;
-            margin-left: 5%;
-            color: white;
+        .hero-left { 
+            flex: 1.2; 
+            max-width: 550px; 
+            margin-left: 5%; 
+            color: white; 
+            text-shadow: 0 2px 15px rgba(0,0,0,0.5);
         }
-        .hero-left h1 {
-            font-family: 'Fraunces', serif;
-            font-size: 3.8rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: white;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        .hero-left h1 { 
+            font-family: 'Fraunces', serif; 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            letter-spacing: -0.02em; 
+            line-height: 1.2; 
+            margin-bottom: 1.5rem; 
+            color: white; 
+            text-shadow: 0 2px 15px rgba(0,0,0,0.5); 
         }
-        .hero-left p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        .hero-left p { 
+            font-size: 1rem; 
+            color: rgba(255,255,255,0.9); 
+            margin-bottom: 2rem; 
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3); 
         }
-        .hero-buttons {
+        .hero-buttons { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .hero .btn-primary { background: white; color: var(--black); border: none; }
+        .hero .btn-primary:hover { background: #f5f5f5; transform: translateY(-3px); }
+        .hero .btn-outline { border-color: rgba(255,255,255,0.5); color: white; }
+        .hero .btn-outline:hover { background: white; color: var(--black); border-color: white; }
+        .hero-stats { display: flex; gap: 3rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 2rem; }
+        .hero-stats div span { display: block; font-weight: 800; font-size: 1.8rem; color: var(--primary-lighter); }
+        .hero-stats div small { font-size: 0.8rem; color: rgba(255,255,255,0.8); }
+        
+        .hero-right { 
+            flex: 1; 
             display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-        }
-        .hero .btn-primary {
-            background: white;
-            color: #8b5cf6;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            border: none;
-        }
-        .hero .btn-primary:hover {
-            background: #f0f0f0;
-            transform: translateY(-3px);
-        }
-        .hero .btn-outline {
-            border-color: #c4b5fd;
-            color: #c4b5fd;
-            background: transparent;
-        }
-        .hero .btn-outline:hover {
-            background: #8b5cf6;
-            color: white;
-            border-color: #8b5cf6;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 2.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            padding-top: 2rem;
-        }
-        .hero-stats div span {
-            display: block;
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        .hero-stats div small {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        .hero-right {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            margin-right: 2%;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+            z-index: 3;
         }
-        .giant-name {
+        
+        .hero-brand-name {
             font-family: 'Fraunces', serif;
             font-size: 7rem;
             font-weight: 800;
-            line-height: 1.1;
-            text-align: left;
-            background: linear-gradient(135deg, #ffffff, #c4b5fd);
+            background: linear-gradient(135deg, #FFFFFF, var(--primary-lighter), #C4B5FD);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: none;
-            letter-spacing: -0.03em;
+            text-align: center;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 40px rgba(139,92,246,0.4);
+            animation: gentleGlow 3s ease-in-out infinite;
+            line-height: 1.1;
+        }
+        
+        @keyframes gentleGlow {
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(139,92,246,0.2); }
+            50% { opacity: 0.95; text-shadow: 0 0 50px rgba(139,92,246,0.6); }
+        }
+        
+        .hero-image {
+            max-width: 65%;
+            height: auto;
+            border-radius: 2rem;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+            animation: floatImage 4s ease-in-out infinite;
+            background: transparent;
+        }
+        
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* Beneficios */
-        .benefits-section {
-            background: white;
+        @media (max-width: 1200px) {
+            .hero-left h1 { font-size: 2.8rem; }
+            .hero-brand-name { font-size: 5rem; }
+            .hero-image { max-width: 55%; }
         }
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; padding: 4rem 2rem; }
+            .hero-left { margin-left: 0; text-align: center; max-width: 100%; }
+            .hero-right { margin-top: 2rem; }
+            .hero-brand-name { font-size: 4rem; }
+            .hero-image { max-width: 45%; }
+            .hero-stats { justify-content: center; }
+        }
+        @media (max-width: 600px) {
+            .hero-left h1 { font-size: 2rem; }
+            .hero-brand-name { font-size: 3rem; }
+            .hero-image { max-width: 65%; }
+            .hero { padding: 3rem 1.5rem; }
+        }
+
+        .benefits-section, .features-section, .contact-section { background: #0A0A0A; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .benefit-card { background: #1A1A1A; border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--border); transition: all 0.35s; }
+        .benefit-card:hover { transform: translateY(-6px); border-color: var(--primary-light); }
+        .benefit-icon { font-size: 2.2rem; color: var(--primary-light); margin-bottom: 1rem; }
+        .benefit-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; color: white; }
+        .benefit-card li { margin: 0.7rem 0; display: flex; align-items: center; gap: 0.6rem; color: var(--gray-500); list-style: none; }
+        .benefit-card li i { color: var(--primary-light); width: 24px; }
+        .timeline-section { background: #111111; }
+        .timeline { max-width: 900px; margin: 0 auto; position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--primary-light)); }
+        .timeline-item { display: flex; gap: 2rem; margin-bottom: 2rem; }
+        .timeline-icon { width: 56px; height: 56px; background: #1A1A1A; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1.3rem; border: 1px solid var(--border); }
+        .timeline-content { background: #1A1A1A; padding: 1rem 2rem; border-radius: 1rem; flex: 1; color: var(--gray-500); border: 1px solid var(--border); }
+        .timeline-content strong { font-size: 1.1rem; display: block; margin-bottom: 0.3rem; color: white; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: #1A1A1A; border-radius: 1.3rem; padding: 1.8rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; display: block; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary-light); }
+        .feature-icon { width: 55px; height: 55px; background: rgba(139,92,246,0.15); border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: var(--primary-light); margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
+        .feature-desc { font-size: 0.85rem; color: var(--gray-500); }
+        
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .benefit-card {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border-light);
+        .contact-form-col { flex: 1.2; min-width: 280px; }
+        .contact-info-col { flex: 1; min-width: 280px; }
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 0.9rem 1rem; margin-bottom: 1rem; border: 1px solid var(--border); border-radius: 1rem;
+            background: #1A1A1A; color: white; font-family: inherit; font-size: 0.9rem;
         }
-        .benefit-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        .benefit-card h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #111827;
-        }
-        .benefit-card li {
-            margin: 0.8rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: #374151;
-        }
-        .benefit-card li i {
-            color: var(--primary);
-            width: 24px;
-        }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary-light); outline: none; }
+        .contact-info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; color: var(--gray-500); }
+        .contact-info-item i { width: 36px; height: 36px; background: #1A1A1A; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-light); font-size: 1rem; border: 1px solid var(--border); }
+        .map-wrapper { margin-top: 1.5rem; border-radius: 1rem; overflow: hidden; border: 1px solid var(--border); height: 240px; }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
 
-        /* Timeline */
-        .timeline-section {
-            background: var(--primary-bg);
-        }
-        .timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 28px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--primary), var(--primary-soft));
-        }
-        .timeline-item {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        .timeline-icon {
-            width: 56px;
-            height: 56px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.5rem;
-            box-shadow: 0 8px 20px rgba(139,92,246,0.15);
-            border: 1px solid var(--border-light);
-            z-index: 2;
-        }
-        .timeline-content {
-            background: white;
-            padding: 1rem 1.8rem;
-            border-radius: 1.2rem;
-            flex: 1;
-            color: #374151;
-        }
-        .timeline-content strong {
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 0.3rem;
-            color: #111827;
-        }
-
-        /* Módulos */
-        .features-section {
-            background: white;
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .feature-card {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 1.8rem;
-            border: 1px solid var(--border-light);
-            text-decoration: none;
-            display: block;
-        }
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-bg);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1.2rem;
-        }
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #111827;
-        }
-        .feature-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        /* Blog */
+        /* BLOG SECTION - VIDEO DE FONDO EN TODO EL MÓDULO */
         .blog-section {
             position: relative;
-            background-image: url('{{ asset("images/retro.png") }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             isolation: isolate;
             border-radius: 2rem;
             margin: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        .blog-section::before {
-            content: '';
+        
+        .blog-video-bg {
             position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 2rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .blog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.7), rgba(109,40,217,0.5));
             z-index: 1;
         }
-        .blog-section > * {
+        
+        .blog-section .section-title,
+        .blog-section .section-sub {
             position: relative;
             z-index: 2;
-        }
-        .blog-section .section-title {
             color: white;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            margin-bottom: 0.5rem;
         }
-        .blog-section .section-sub {
-            color: rgba(255, 255, 255, 0.85);
-        }
+        
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 0 2rem 3rem;
+            position: relative;
+            z-index: 2;
         }
+        
         .blog-card {
-            background: white;
+            background: rgba(26,26,26,0.8);
+            backdrop-filter: blur(10px);
             border-radius: 1.5rem;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.4s;
+            border: 1px solid rgba(139,92,246,0.2);
         }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139,92,246,0.6);
+            background: rgba(26,26,26,0.95);
+        }
+        
         .blog-img {
-            height: 180px;
-            background: #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.8rem;
-            color: #4b5563;
+            height: 200px;
+            overflow: hidden;
         }
+        
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-img img {
+            transform: scale(1.05);
+        }
+        
         .blog-content {
             padding: 1.5rem;
         }
+        
         .blog-content h4 {
-            color: #111827;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        .blog-content p {
-            color: #4b5563;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        .blog-content a {
-            color: #000000;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .blog-content a:hover {
-            color: #4b5563;
-            text-decoration: underline;
-        }
-
-        /* Contacto */
-        .contact-section {
-            background: white;
-            padding: 5rem 2rem;
-        }
-        .contact-grid {
-            display: flex;
-            gap: 3rem;
-            flex-wrap: wrap;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .contact-form {
-            flex: 1;
-            min-width: 280px;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: 1rem;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        .contact-form input:focus, .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        .contact-info {
-            flex: 1;
-            min-width: 280px;
-        }
-        .contact-info p {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: #374151;
-        }
-        .contact-info i {
-            width: 28px;
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-        .map-container {
-            border-radius: 1rem;
-            overflow: hidden;
-            margin-top: 1.5rem;
-            border: 1px solid var(--border-light);
-            height: 220px;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .faq-section {
-            background: var(--primary-bg);
-        }
-        .faq-grid {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            border-bottom: 1px solid var(--border-light);
-            padding: 1rem 0;
-        }
-        .faq-question {
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: flex;
-            justify-content: space-between;
-            cursor: pointer;
-            padding: 0.5rem 0;
-            color: #111827;
-        }
-        .faq-question i {
-            color: var(--primary);
-        }
-        .faq-answer {
-            color: var(--text-muted);
-            padding-bottom: 1rem;
-            display: none;
-            line-height: 1.6;
-        }
-        .faq-answer.show {
-            display: block;
-        }
-
-        .footer {
-            background: #111827;
-            padding: 3rem 2rem 2rem;
             color: white;
         }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .footer-col h4 {
-            font-size: 1.1rem;
+        
+        .blog-content p {
+            color: rgba(255,255,255,0.7);
             margin-bottom: 1rem;
-            color: #c4b5fd;
+            font-size: 0.85rem;
         }
-        .footer-col a {
-            display: block;
-            color: #cbd5e1;
+        
+        .blog-content a {
+            color: var(--primary-light);
+            font-weight: 600;
             text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 0.6rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+        
+        .blog-content a:hover {
+            color: var(--primary-lighter);
+            gap: 8px;
         }
-        .footer-bottom {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #2e2a5c;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
+        
+        .faq-section { background: #111111; }
+        .faq-grid { max-width: 900px; margin: 0 auto; }
+        .faq-question { font-weight: 700; font-size: 1rem; display: flex; justify-content: space-between; cursor: pointer; padding: 0.8rem 0; color: white; border-bottom: 1px solid var(--border); }
+        .faq-question i { color: var(--primary-light); }
+        .faq-answer { color: var(--gray-500); padding: 1rem 0; display: none; line-height: 1.6; font-size: 0.9rem; }
+        .faq-answer.show { display: block; }
+        .footer { background: #050505; padding: 3rem 2rem 2rem; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+        .footer-col h4 { color: var(--primary-light); margin-bottom: 1rem; font-size: 0.9rem; }
+        .footer-col a { color: #8A8A8A; text-decoration: none; font-size: 0.8rem; display: block; margin-bottom: 0.5rem; transition: all 0.2s; }
+        .footer-col a:hover { color: var(--primary-light); transform: translateX(4px); }
+        .footer-social a { color: #8A8A8A; font-size: 1rem; margin-right: 1rem; display: inline-block; }
+        .footer-social a:hover { color: var(--primary-light); transform: translateY(-2px); }
+        .footer-bottom { text-align: center; margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #1A1A1A; font-size: 0.7rem; color: #6B6B6B; }
 
+        .section-title { font-size: 2rem; font-weight: 700; color: white; margin-bottom: 1rem; text-align: center; }
+        .section-sub { text-align: center; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 2rem; font-size: 0.95rem; }
+
+        /* CHATBOT */
+        .chatbot-float { position: fixed; bottom: 28px; right: 28px; width: 65px; height: 65px; background: linear-gradient(135deg, #6D28D9, #8B5CF6); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+        .chatbot-float:hover { transform: scale(1.08); }
+        .chatbot-float i { font-size: 2rem; color: white; }
+        .chatbot-pulse { position: absolute; width: 100%; height: 100%; background: rgba(139,92,246,0.4); border-radius: 50%; animation: pulse 2s infinite; z-index: -1; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 70% { transform: scale(1.3); opacity: 0; } 100% { transform: scale(1.3); opacity: 0; } }
+        .chatbot-modal { position: fixed; bottom: 110px; right: 28px; width: 380px; height: 550px; background: #1A1A1A; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); z-index: 1001; display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); animation: fadeInUp 0.3s ease; }
+        .chatbot-modal.show { display: flex; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .chatbot-modal-header { background: linear-gradient(135deg, #6D28D9, #8B5CF6); padding: 18px 20px; display: flex; justify-content: space-between; color: white; border-radius: 24px 24px 0 0; }
+        .chatbot-header-info { display: flex; align-items: center; gap: 12px; }
+        .chatbot-header-info i { font-size: 1.8rem; color: #A78BFA; }
+        .chatbot-close { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+        .chatbot-close:hover { color: #A78BFA; }
+        .chatbot-messages { flex: 1; overflow-y: auto; padding: 20px; background: #0A0A0A; display: flex; flex-direction: column; gap: 16px; }
+        .message { display: flex; gap: 10px; animation: messageFade 0.3s ease; }
+        .message.user { flex-direction: row-reverse; }
+        .message-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #8B5CF6, #A78BFA); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+        .message.user .message-avatar { background: #10b981; }
+        .message-content { max-width: 75%; padding: 10px 14px; background: #1A1A1A; border-radius: 18px; font-size: 0.85rem; color: #E5E5E5; border: 1px solid var(--border); }
+        .message.user .message-content { background: linear-gradient(135deg, #8B5CF6, #A78BFA); color: white; }
+        .typing-indicator { display: flex; gap: 4px; padding: 10px 14px; background: #1A1A1A; border-radius: 18px; width: fit-content; border: 1px solid var(--border); }
+        .typing-indicator span { width: 7px; height: 7px; background: #8B5CF6; border-radius: 50%; animation: typing 1.4s infinite; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
+        .chatbot-input-area { display: flex; padding: 16px; background: #1A1A1A; border-top: 1px solid var(--border); gap: 10px; }
+        .chatbot-input-area input { flex: 1; padding: 12px 16px; border: 1px solid var(--border); border-radius: 30px; font-size: 0.85rem; outline: none; background: #0A0A0A; color: white; }
+        .chatbot-input-area input:focus { border-color: #8B5CF6; }
+        .chatbot-input-area button { width: 44px; height: 44px; background: #8B5CF6; border: none; border-radius: 50%; color: white; cursor: pointer; }
+        .chatbot-input-area button:hover { background: #6D28D9; }
+
+        @media (max-width: 1000px) {
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 3rem 1rem;
-                margin: 0.5rem;
-            }
-            .hero-left {
-                margin-left: 0;
-                text-align: center;
-            }
-            .hero-right {
-                margin-right: 0;
-                justify-content: center;
-            }
-            .giant-name {
-                font-size: 3.5rem;
-                text-align: center;
-            }
-            .hero-left h1 {
-                font-size: 2.5rem;
-            }
-            .hero-stats {
-                justify-content: center;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .navbar-custom {
-                padding: 0 1rem;
-            }
-            .nav-links {
-                gap: 0.2rem;
-            }
-            .nav-link {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.85rem;
-            }
-            .contact-grid {
-                flex-direction: column;
-            }
-            .blog-section {
-                margin: 1rem;
-            }
-            .blog-grid {
-                padding: 0 1rem 2rem;
-            }
+            .blog-grid { grid-template-columns: 1fr; }
+            .hero { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
+            .hero-left { margin-left: 0; text-align: center; max-width: 100%; }
+            .hero-right { margin-top: 2rem; }
+            .nav-links { display: none; }
+            .navbar-custom { padding: 0 1rem; }
+            .contact-wrapper { flex-direction: column; }
+            .chatbot-float { width: 60px; height: 60px; bottom: 20px; right: 20px; }
+            .chatbot-modal { width: calc(100% - 40px); right: 20px; bottom: 100px; height: 500px; }
         }
     </style>
 </head>
@@ -734,6 +411,7 @@
         <a href="#beneficios" class="nav-link">Beneficios</a>
         <a href="#funciona" class="nav-link">Cómo funciona</a>
         <a href="#modulos" class="nav-link">Módulos</a>
+        <a href="#recursos" class="nav-link">Recursos</a>
         <a href="#contacto" class="nav-link">Contacto</a>
         <a href="#faq" class="nav-link">FAQ</a>
     </div>
@@ -743,8 +421,13 @@
     </div>
 </nav>
 
-<!-- HERO con animación AOS -->
+<!-- HERO -->
 <section class="hero" data-aos="fade-up" data-aos-duration="1000">
+    <video class="hero-video" autoplay loop muted playsinline preload="metadata">
+        <source src="{{ asset('videos/mona.mp4#t=20') }}" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+    
     <div class="hero-left">
         <h1>La forma más inteligente de gestionar tu institución educativa</h1>
         <p>Automatiza matrículas, organiza cursos, controla horarios y obtén reportes en tiempo real. Miles de instituciones ya confían en Blue Butterfly.</p>
@@ -753,169 +436,133 @@
             <a href="#" class="btn-outline" onclick="abrirModalDemo(); return false;">Ver demo <i class="fas fa-play"></i></a>
         </div>
         <div class="hero-stats">
-            <div><span>+50</span> <small>instituciones</small></div>
-            <div><span>98%</span> <small>satisfacción</small></div>
-            <div><span>24/7</span> <small>soporte</small></div>
+            <div><span>+50</span><small>instituciones</small></div>
+            <div><span>98%</span><small>satisfacción</small></div>
+            <div><span>24/7</span><small>soporte</small></div>
         </div>
     </div>
     <div class="hero-right">
-        <div class="giant-name">Blue<br>Butterfly</div>
+        <div class="hero-brand-name">Blue Butterfly</div>
+        <img src="{{ asset('images/chica.png') }}" alt="Estudiante" class="hero-image" onerror="this.style.display='none'">
     </div>
 </section>
 
-<!-- BENEFICIOS con AOS -->
-<section id="beneficios" class="benefits-section section-padding" data-aos="fade-up" data-aos-delay="100">
-    <div style="text-align:center;">
-        <h2 class="section-title">Una experiencia diseñada para todos</h2>
-        <p class="section-sub">Blue Butterfly se adapta a cada miembro de tu comunidad educativa.</p>
-    </div>
+<!-- BENEFICIOS -->
+<section id="beneficios" class="benefits-section section-padding" data-aos="fade-up">
+    <div><h2 class="section-title">Una experiencia diseñada para todos</h2><p class="section-sub">Blue Butterfly se adapta a cada miembro de tu comunidad educativa.</p></div>
     <div class="benefits-grid">
-        <div class="benefit-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="benefit-icon"><i class="fas fa-user-graduate"></i></div>
-            <h3>Para alumnos</h3>
-            <ul>
-                <li><i class="fas fa-calendar-alt"></i> Horarios y notas en un solo lugar</li>
-                <li><i class="fas fa-laptop"></i> Matrícula online</li>
-                <li><i class="fas fa-bell"></i> Notificaciones académicas</li>
-            </ul>
-        </div>
-        <div class="benefit-card" data-aos="zoom-in" data-aos-delay="300">
-            <div class="benefit-icon"><i class="fas fa-chalkboard-user"></i></div>
-            <h3>Para docentes</h3>
-            <ul>
-                <li><i class="fas fa-pen-fancy"></i> Calificaciones ágiles</li>
-                <li><i class="fas fa-list"></i> Listas de alumnos por curso</li>
-                <li><i class="fas fa-chart-simple"></i> Reportes de rendimiento</li>
-            </ul>
-        </div>
-        <div class="benefit-card" data-aos="zoom-in" data-aos-delay="400">
-            <div class="benefit-icon"><i class="fas fa-building"></i></div>
-            <h3>Para administradores</h3>
-            <ul>
-                <li><i class="fas fa-credit-card"></i> Control de pagos</li>
-                <li><i class="fas fa-clock"></i> Gestión de horarios y aulas</li>
-                <li><i class="fas fa-chart-line"></i> Estadísticas y exportación</li>
-            </ul>
-        </div>
+        <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-user-graduate"></i></div><h3>Para alumnos</h3><ul><li><i class="fas fa-calendar-alt"></i> Horarios y notas en un solo lugar</li><li><i class="fas fa-laptop"></i> Matrícula online</li><li><i class="fas fa-bell"></i> Notificaciones académicas</li></ul></div>
+        <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-chalkboard-user"></i></div><h3>Para docentes</h3><ul><li><i class="fas fa-pen-fancy"></i> Calificaciones ágiles</li><li><i class="fas fa-list"></i> Listas de alumnos por curso</li><li><i class="fas fa-chart-simple"></i> Reportes de rendimiento</li></ul></div>
+        <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-building"></i></div><h3>Para administradores</h3><ul><li><i class="fas fa-credit-card"></i> Control de pagos</li><li><i class="fas fa-clock"></i> Gestión de horarios y aulas</li><li><i class="fas fa-chart-line"></i> Estadísticas y exportación</li></ul></div>
     </div>
 </section>
 
-<!-- CÓMO FUNCIONA con AOS -->
-<section id="funciona" class="timeline-section section-padding" data-aos="fade-right" data-aos-duration="800">
-    <div style="text-align:center;">
-        <h2 class="section-title">Empieza en 3 pasos</h2>
-        <p class="section-sub">Configuración rápida y sencilla.</p>
-    </div>
+<!-- CÓMO FUNCIONA -->
+<section id="funciona" class="timeline-section section-padding" data-aos="fade-right">
+    <div><h2 class="section-title">Empieza en 3 pasos</h2><p class="section-sub">Configuración rápida y sencilla.</p></div>
     <div class="timeline">
-        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-            <div class="timeline-icon"><i class="fas fa-user-plus"></i></div>
-            <div class="timeline-content"><strong>1. Crea tu cuenta</strong> Regístrate gratis y configura tu institución.</div>
-        </div>
-        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-            <div class="timeline-icon"><i class="fas fa-database"></i></div>
-            <div class="timeline-content"><strong>2. Configura tus datos</strong> Añade alumnos, cursos, docentes y horarios.</div>
-        </div>
-        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-            <div class="timeline-icon"><i class="fas fa-file-signature"></i></div>
-            <div class="timeline-content"><strong>3. Gestiona matrículas</strong> Inscribe alumnos y genera reportes.</div>
-        </div>
+        <div class="timeline-item"><div class="timeline-icon"><i class="fas fa-user-plus"></i></div><div class="timeline-content"><strong>1. Crea tu cuenta</strong> Regístrate gratis y configura tu institución.</div></div>
+        <div class="timeline-item"><div class="timeline-icon"><i class="fas fa-database"></i></div><div class="timeline-content"><strong>2. Configura tus datos</strong> Añade alumnos, cursos, docentes y horarios.</div></div>
+        <div class="timeline-item"><div class="timeline-icon"><i class="fas fa-file-signature"></i></div><div class="timeline-content"><strong>3. Gestiona matrículas</strong> Inscribe alumnos y genera reportes.</div></div>
     </div>
 </section>
 
-<!-- MÓDULOS con AOS -->
+<!-- MÓDULOS -->
 <section id="modulos" class="features-section section-padding" data-aos="fade-up">
-    <div style="text-align:center;">
-        <h2 class="section-title">Todo lo que tu institución necesita</h2>
-        <p class="section-sub">Módulos integrados para una gestión completa.</p>
-    </div>
+    <div><h2 class="section-title">Todo lo que tu institución necesita</h2><p class="section-sub">Módulos integrados para una gestión completa.</p></div>
     <div class="features-grid">
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="100"><div class="feature-icon"><i class="fas fa-user-graduate"></i></div><div class="feature-title">Gestión de Alumnos</div><div class="feature-desc">Registra y consulta el historial completo.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="150"><div class="feature-icon"><i class="fas fa-book-open"></i></div><div class="feature-title">Catálogo de Cursos</div><div class="feature-desc">Administra cursos, créditos y descripciones.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="200"><div class="feature-icon"><i class="fas fa-id-card"></i></div><div class="feature-title">Proceso de Matrícula</div><div class="feature-desc">Matricula alumnos con control de horarios.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="250"><div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div><div class="feature-title">Docentes</div><div class="feature-desc">Registro por especialidad y asignación.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="300"><div class="feature-icon"><i class="fas fa-calendar-week"></i></div><div class="feature-title">Horarios Académicos</div><div class="feature-desc">Configura días, horas y aulas sin cruces.</div></a>
-        <a href="{{ route('login') }}" class="feature-card" data-aos="flip-left" data-aos-delay="350"><div class="feature-icon"><i class="fas fa-door-open"></i></div><div class="feature-title">Aulas</div><div class="feature-desc">Gestiona espacios físicos y disponibilidad.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-user-graduate"></i></div><div class="feature-title">Gestión de Alumnos</div><div class="feature-desc">Registra y consulta el historial completo.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-book-open"></i></div><div class="feature-title">Catálogo de Cursos</div><div class="feature-desc">Administra cursos, créditos y descripciones.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-id-card"></i></div><div class="feature-title">Proceso de Matrícula</div><div class="feature-desc">Matricula alumnos con control de horarios.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div><div class="feature-title">Docentes</div><div class="feature-desc">Registro por especialidad y asignación.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-calendar-week"></i></div><div class="feature-title">Horarios Académicos</div><div class="feature-desc">Configura días, horas y aulas sin cruces.</div></a>
+        <a href="{{ route('login') }}" class="feature-card"><div class="feature-icon"><i class="fas fa-door-open"></i></div><div class="feature-title">Aulas</div><div class="feature-desc">Gestiona espacios físicos y disponibilidad.</div></a>
     </div>
 </section>
 
-<!-- BLOG con AOS -->
-<section class="blog-section section-padding" data-aos="zoom-in">
-    <div style="text-align:center;">
+<!-- RECURSOS PARA TU INSTITUCIÓN - VIDEO DE FONDO + 3 IMÁGENES (m1.png, m2.png, m3.png) -->
+<section id="recursos" class="blog-section section-padding" data-aos="zoom-in">
+    <video class="blog-video-bg" autoplay loop muted playsinline preload="metadata">
+        <source src="{{ asset('videos/bell.mp4') }}" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+    <div class="blog-overlay"></div>
+    
+    <div style="position: relative; z-index: 2;">
         <h2 class="section-title">Recursos para tu institución</h2>
         <p class="section-sub">Artículos y guías del sector educativo.</p>
     </div>
+    
     <div class="blog-grid">
-        <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="blog-img"><i class="fas fa-chalkboard"></i></div>
+        <!-- Tarjeta 1 - Imagen m1.png -->
+        <div class="blog-card">
+            <div class="blog-img">
+                <img src="{{ asset('images/m1.png') }}" alt="Cómo reducir la deserción escolar" onerror="this.src='https://placehold.co/400x250/8B5CF6/white?text=Deserci%C3%B3n+Escolar'">
+            </div>
             <div class="blog-content">
                 <h4>Cómo reducir la deserción escolar</h4>
-                <p>Estrategias prácticas con datos académicos.</p>
+                <p>Estrategias prácticas con datos académicos para mantener a los estudiantes comprometidos.</p>
                 <a href="https://larepublica.pe/educacion/2025/02/05/desercion-escolar-el-reto-que-afecta-a-la-juventud-y-limita-sus-oportunidades-en-el-mercado-laboral-como-combatirlo-atmpa-391915/" target="_blank">Leer más →</a>
             </div>
         </div>
-        <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="blog-img"><i class="fas fa-laptop-code"></i></div>
+        
+        <!-- Tarjeta 2 - Imagen m2.png -->
+        <div class="blog-card">
+            <div class="blog-img">
+                <img src="{{ asset('images/m2.png') }}" alt="Implementa tu sistema en 1 semana" onerror="this.src='https://placehold.co/400x250/8B5CF6/white?text=Implementaci%C3%B3n'">
+            </div>
             <div class="blog-content">
                 <h4>Implementa tu sistema en 1 semana</h4>
-                <p>Pasos para migrar tu institución rápidamente.</p>
+                <p>Pasos para migrar tu institución rápidamente sin complicaciones técnicas.</p>
                 <a href="https://www.gob.pe/82034-impacto-de-la-innovacion-digital-en-el-acceso-a-la-educacion-en-el-peru" target="_blank">Leer más →</a>
             </div>
         </div>
-        <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="blog-img"><i class="fas fa-chart-line"></i></div>
+        
+        <!-- Tarjeta 3 - Imagen m3.png -->
+        <div class="blog-card">
+            <div class="blog-img">
+                <img src="{{ asset('images/m3.png') }}" alt="5 indicadores clave para directivos" onerror="this.src='https://placehold.co/400x250/8B5CF6/white?text=Indicadores+Clave'">
+            </div>
             <div class="blog-content">
                 <h4>5 indicadores clave para directivos</h4>
-                <p>Métricas para una gestión educativa exitosa.</p>
-                <a href="https://www.gob.pe/institucion/minedu/noticias/1226128-gobierno-impulsa-transformacion-digital-que-beneficia-a-mas-de-4-6-millones-de-estudiantes" target="_blank">Leer más →</a>
+                <p>Métricas esenciales para una gestión educativa exitosa y basada en datos.</p>
+                <a href="https://www.gob.pe/institucion/minedu/noticias/1226128/gobierno-impulsa-transformacion-digital-que-beneficia-a-mas-de-4-6-millones-de-estudiantes" target="_blank">Leer más →</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CONTACTO con AOS -->
-<section id="contacto" class="contact-section" data-aos="fade-up">
-    <div style="text-align:center; margin-bottom:3rem;">
-        <div style="display:inline-block; background:#f3e8ff; padding:0.2rem 1rem; border-radius:2rem; font-size:0.8rem; color:var(--primary);">Contáctanos</div>
-        <h2 class="section-title" style="margin-top:0.5rem;">¿Necesitas más información?</h2>
-        <p class="section-sub">Estamos aquí para ayudarte.</p>
-    </div>
-    <div class="contact-grid">
-        <div class="contact-form" data-aos="fade-right" data-aos-delay="100">
-            <form action="#" method="POST">
-                @csrf
-                <input type="text" class="form-control" placeholder="Nombre completo" required>
-                <input type="email" class="form-control" placeholder="Correo electrónico" required>
-                <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
-                <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Enviar mensaje <i class="fas fa-paper-plane"></i></button>
-            </form>
-        </div>
-        <div class="contact-info" data-aos="fade-left" data-aos-delay="200">
-            <p><i class="fas fa-envelope"></i> soporte.bluebutterfly@gmail.com</p>
-            <p><i class="fas fa-phone-alt"></i> +51 1 234 5678</p>
-            <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Lima, Perú</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.6431376191754!2d-77.06416518843093!3d-11.999176640969388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce568c042771%3A0x6072f46c2b26e80!2sSENATI%20Sede%20Principal!5e0!3m2!1ses-419!2spe!4v1780272662053!5m2!1ses-419!2spe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!-- CONTACTO CON MAPA A LA DERECHA -->
+<section id="contacto" class="contact-section section-padding" data-aos="fade-up">
+    <div style="text-align:center; margin-bottom:2rem;"><div style="display:inline-block; background:rgba(139,92,246,0.15); padding:0.2rem 1rem; border-radius:2rem; font-size:0.7rem; color:var(--primary-light);">Contáctanos</div><h2 class="section-title" style="margin-top:0.5rem;">¿Necesitas más información?</h2><p class="section-sub">Estamos aquí para ayudarte.</p></div>
+    <div class="contact-wrapper">
+        <div class="contact-form-col">
+            <div class="contact-form">
+                <form action="#" method="POST">@csrf<input type="text" placeholder="Nombre completo" required><input type="email" placeholder="Correo electrónico" required><textarea rows="4" placeholder="Mensaje" required></textarea><button type="submit" class="btn-primary">Enviar mensaje <i class="fas fa-paper-plane"></i></button></form>
             </div>
+        </div>
+        <div class="contact-info-col">
+            <div class="contact-info-item"><i class="fas fa-envelope"></i> <span>soporte.bluebutterfly@gmail.com</span></div>
+            <div class="contact-info-item"><i class="fas fa-phone-alt"></i> <span>+51 1 234 5678</span></div>
+            <div class="contact-info-item"><i class="fas fa-map-marker-alt"></i> <span>Av. Principal 123, Lima, Perú</span></div>
+            <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.6431376191754!2d-77.06416518843093!3d-11.999176640969388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce568c042771%3A0x6072f46c2b26e80!2sSENATI%20Sede%20Principal!5e0!3m2!1ses-419!2spe!4v1780272662053!5m2!1ses-419!2spe" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
     </div>
 </section>
 
-<!-- FAQ con AOS -->
+<!-- FAQ -->
 <section id="faq" class="faq-section section-padding" data-aos="fade-up">
-    <div style="text-align:center;">
-        <h2 class="section-title">Preguntas frecuentes</h2>
-        <p class="section-sub">Resolvemos tus dudas.</p>
-    </div>
+    <div><h2 class="section-title">Preguntas frecuentes</h2><p class="section-sub">Resolvemos tus dudas.</p></div>
     <div class="faq-grid">
-        <div class="faq-item" data-aos="fade-right" data-aos-delay="100"><div class="faq-question" onclick="toggleFaq(this)">¿Es gratuito? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sí, ofrecemos un plan gratuito con funcionalidades básicas para hasta 100 alumnos, gestión de cursos y matrículas. Luego puedes escalar según tus necesidades.</div></div>
-        <div class="faq-item" data-aos="fade-right" data-aos-delay="150"><div class="faq-question" onclick="toggleFaq(this)">¿Necesito conocimientos técnicos? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No, el sistema es intuitivo y diseñado para cualquier usuario. Además contamos con tutoriales y soporte personalizado.</div></div>
-        <div class="faq-item" data-aos="fade-right" data-aos-delay="200"><div class="faq-question" onclick="toggleFaq(this)">¿Puedo migrar mis datos actuales? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sí, ofrecemos asistencia para migrar desde Excel, CSV u otros sistemas educativos sin costo durante el primer mes.</div></div>
-        <div class="faq-item" data-aos="fade-right" data-aos-delay="250"><div class="faq-question" onclick="toggleFaq(this)">¿Qué soporte técnico ofrecen? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Soporte por chat, correo y teléfono en horario laboral, con respuesta en menos de 2 horas.</div></div>
+        <div><div class="faq-question" onclick="toggleFaq(this)">¿Es gratuito? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sí, ofrecemos un plan gratuito con funcionalidades básicas para hasta 100 alumnos, gestión de cursos y matrículas. Luego puedes escalar según tus necesidades.</div></div>
+        <div><div class="faq-question" onclick="toggleFaq(this)">¿Necesito conocimientos técnicos? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No, el sistema es intuitivo y diseñado para cualquier usuario. Además contamos con tutoriales y soporte personalizado.</div></div>
+        <div><div class="faq-question" onclick="toggleFaq(this)">¿Puedo migrar mis datos actuales? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sí, ofrecemos asistencia para migrar desde Excel, CSV u otros sistemas educativos sin costo durante el primer mes.</div></div>
+        <div><div class="faq-question" onclick="toggleFaq(this)">¿Qué soporte técnico ofrecen? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Soporte por chat, correo y teléfono en horario laboral, con respuesta en menos de 2 horas.</div></div>
     </div>
 </section>
 
-<!-- FOOTER con AOS -->
-<footer class="footer" data-aos="fade-up">
+<!-- FOOTER -->
+<footer class="footer">
     <div class="footer-grid">
         <div class="footer-col"><h4>Producto</h4><a href="#">Características</a><a href="#">Precios</a><a href="#">Demo</a></div>
         <div class="footer-col"><h4>Recursos</h4><a href="#">Blog</a><a href="#">Documentación</a><a href="#">Soporte</a></div>
@@ -925,430 +572,62 @@
     <div class="footer-bottom">© {{ date('Y') }} Blue Butterfly Network — Sistema de Matrícula Académica. contacto: soporte.bluebutterfly@gmail.com</div>
 </footer>
 
-<!-- Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Inicializar AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
-
-    function toggleFaq(element) {
-        let answer = element.nextElementSibling;
-        answer.classList.toggle('show');
-        let icon = element.querySelector('i');
-        if (answer.classList.contains('show')) {
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-        } else {
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
-        }
-    }
-
-    document.querySelectorAll('.nav-link').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
+    AOS.init({ duration: 800, once: true, offset: 100 });
+    function toggleFaq(element) { let answer = element.nextElementSibling; answer.classList.toggle('show'); let icon = element.querySelector('i'); if (answer.classList.contains('show')) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); } else { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); } }
+    document.querySelectorAll('.nav-link').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth' }); }); });
 
     function abrirModalDemo() {
-        const modalHtml = `
-            <div id="modalDemo" style="position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem;">
-                <div style="background:white; border-radius:2rem; max-width:800px; width:100%; overflow:hidden; box-shadow:0 40px 60px -20px black;">
-                    <div style="padding:1.5rem; border-bottom:1px solid #e9d5ff; display:flex; justify-content:space-between; align-items:center;">
-                        <h3 style="margin:0; font-size:1.4rem; font-weight:700;">Vista previa del Dashboard</h3>
-                        <button onclick="cerrarModalDemo()" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
-                    </div>
-                    <div style="position:relative; overflow:hidden;">
-                        <div id="slides" style="display:flex; transition:transform 0.4s ease;">
-                            <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide1.PNG') }}" alt="Dashboard 1" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
-                                <p style="margin-top:1rem;">Panel principal</p>
-                            </div>
-                            <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide2.PNG') }}" alt="Dashboard 2" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
-                                <p style="margin-top:1rem;">Gestión de cursos</p>
-                            </div>
-                            <div style="min-width:100%; padding:2rem; text-align:center; background:#f8fafc;">
-                                <img src="{{ asset('imagenes/demo/slide3.PNG') }}" alt="Dashboard 3" style="width:100%; border-radius:1rem; border:1px solid #e9d5ff;">
-                                <p style="margin-top:1rem;">Administración de aulas</p>
-                            </div>
-                        </div>
-                        <button onclick="moverSlide(-1)" style="position:absolute; left:0.5rem; top:50%; transform:translateY(-50%); background:white; border:1px solid #cbd5e1; border-radius:50%; width:40px; height:40px; cursor:pointer;">‹</button>
-                        <button onclick="moverSlide(1)" style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); background:white; border:1px solid #cbd5e1; border-radius:50%; width:40px; height:40px; cursor:pointer;">›</button>
-                    </div>
-                    <div id="dots" style="display:flex; justify-content:center; gap:10px; padding:1rem 0;"></div>
-                    <div style="padding:0 1.5rem 1.8rem; text-align:center;">
-                        <a href="{{ route('register') }}" class="btn-primary" style="display:inline-block;">Comenzar ahora →</a>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-        let slideActual = 0;
-        const totalSlides = 3;
-        function actualizarCarrusel() {
-            const slides = document.getElementById('slides');
-            if (slides) slides.style.transform = `translateX(-${slideActual * 100}%)`;
-            const dotsContainer = document.getElementById('dots');
-            if (dotsContainer) {
-                dotsContainer.innerHTML = '';
-                for (let i = 0; i < totalSlides; i++) {
-                    const dot = document.createElement('span');
-                    dot.style.width = '10px';
-                    dot.style.height = '10px';
-                    dot.style.borderRadius = '50%';
-                    dot.style.background = i === slideActual ? '#8b5cf6' : '#cbd5e1';
-                    dot.style.cursor = 'pointer';
-                    dot.style.margin = '0 4px';
-                    dot.onclick = () => { slideActual = i; actualizarCarrusel(); };
-                    dotsContainer.appendChild(dot);
-                }
-            }
-        }
-        window.moverSlide = function(dir) {
-            slideActual = (slideActual + dir + totalSlides) % totalSlides;
-            actualizarCarrusel();
-        };
-        window.cerrarModalDemo = function() {
-            const modal = document.getElementById('modalDemo');
-            if (modal) modal.remove();
-        };
-        actualizarCarrusel();
-        document.getElementById('modalDemo').addEventListener('click', function(e) {
-            if (e.target === this) cerrarModalDemo();
-        });
+        alert("Demo próximamente disponible.");
     }
 </script>
 
-<!-- ========== CHATBOT FLOTANTE ========== -->
-<div class="chatbot-float" id="chatbotFloat">
-    <i class="fas fa-robot"></i>
-    <div class="chatbot-pulse"></div>
-</div>
-
-<div class="chatbot-modal" id="chatbotModal">
-    <div class="chatbot-modal-header">
-        <div class="chatbot-header-info">
-            <i class="fas fa-robot"></i>
-            <div>
-                <h4>Asistente Blue Butterfly</h4>
-                <p>Responde tus dudas sobre el sistema</p>
-            </div>
-        </div>
-        <button class="chatbot-close" id="chatbotClose">&times;</button>
-    </div>
-    <div class="chatbot-messages" id="chatbotMessages">
-        <div class="message bot">
-            <div class="message-avatar"><i class="fas fa-robot"></i></div>
-            <div class="message-content">
-                ¡Hola! Soy el asistente virtual de Blue Butterfly.<br>
-                Puedo decirte cuántos alumnos, cursos, aulas, horarios o matrículas hay registrados.<br>
-                ¿En qué puedo ayudarte hoy?
-            </div>
-        </div>
-    </div>
-    <div class="chatbot-input-area">
-        <input type="text" id="chatbotInput" placeholder="Escribe tu mensaje..." autocomplete="off">
-        <button id="chatbotSendBtn">
-            <i class="fas fa-paper-plane"></i>
-        </button>
-    </div>
-</div>
-
-<style>
-/* ===== CHATBOT FLOTANTE ===== */
-.chatbot-float {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 65px;
-    height: 65px;
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 8px 20px rgba(124,58,237,0.4);
-    transition: all 0.3s ease;
-}
-.chatbot-float:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 28px rgba(124,58,237,0.5);
-}
-.chatbot-float i {
-    font-size: 2rem;
-    color: white;
-}
-.chatbot-pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(124,58,237,0.4);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    z-index: -1;
-}
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    70% { transform: scale(1.3); opacity: 0; }
-    100% { transform: scale(1.3); opacity: 0; }
-}
-.chatbot-modal {
-    position: fixed;
-    bottom: 110px;
-    right: 28px;
-    width: 380px;
-    height: 550px;
-    background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    z-index: 1001;
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid #e9d5ff;
-    animation: fadeInUp 0.3s ease;
-}
-.chatbot-modal.show { display: flex; }
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.chatbot-modal-header {
-    background: linear-gradient(135deg, #1a1a2e, #2a1a3a);
-    padding: 18px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-.chatbot-header-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.chatbot-header-info i {
-    font-size: 1.8rem;
-    color: #a78bfa;
-}
-.chatbot-header-info h4 {
-    font-family: 'Space Mono', monospace;
-    font-size: 1rem;
-    margin-bottom: 2px;
-}
-.chatbot-header-info p {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.7);
-}
-.chatbot-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.chatbot-close:hover {
-    color: #f87171;
-    transform: scale(1.1);
-}
-.chatbot-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    background: #f8fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-.message {
-    display: flex;
-    gap: 10px;
-    animation: messageFade 0.3s ease;
-}
-@keyframes messageFade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.message.user { flex-direction: row-reverse; }
-.message-avatar {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    color: white;
-    flex-shrink: 0;
-}
-.message.user .message-avatar { background: #10b981; }
-.message-content {
-    max-width: 75%;
-    padding: 10px 14px;
-    background: white;
-    border-radius: 18px;
-    font-size: 0.85rem;
-    line-height: 1.45;
-    color: #1e293b;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-.message.user .message-content {
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    color: white;
-}
-.typing-indicator {
-    display: flex;
-    gap: 4px;
-    padding: 10px 14px;
-    background: white;
-    border-radius: 18px;
-    width: fit-content;
-}
-.typing-indicator span {
-    width: 7px;
-    height: 7px;
-    background: #7c3aed;
-    border-radius: 50%;
-    animation: typing 1.4s infinite;
-}
-.typing-indicator span:nth-child(1) { animation-delay: 0s; }
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-6px); opacity: 1; }
-}
-.chatbot-input-area {
-    display: flex;
-    padding: 16px;
-    background: white;
-    border-top: 1px solid #f0e7ff;
-    gap: 10px;
-}
-.chatbot-input-area input {
-    flex: 1;
-    padding: 12px 16px;
-    border: 1px solid #e9d5ff;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    outline: none;
-}
-.chatbot-input-area input:focus {
-    border-color: #7c3aed;
-    box-shadow: 0 0 0 2px rgba(124,58,237,0.1);
-}
-.chatbot-input-area button {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.chatbot-input-area button:hover {
-    transform: scale(1.05);
-}
-@media (max-width: 500px) {
-    .chatbot-modal {
-        width: calc(100% - 40px);
-        right: 20px;
-        bottom: 100px;
-        height: 500px;
-    }
-}
-</style>
+<!-- CHATBOT -->
+<div class="chatbot-float" id="chatbotFloat"><i class="fas fa-robot"></i><div class="chatbot-pulse"></div></div>
+<div class="chatbot-modal" id="chatbotModal"><div class="chatbot-modal-header"><div class="chatbot-header-info"><i class="fas fa-robot"></i><div><h4>Asistente Blue Butterfly</h4><p>Responde tus dudas</p></div></div><button class="chatbot-close" id="chatbotClose">&times;</button></div><div class="chatbot-messages" id="chatbotMessages"><div class="message bot"><div class="message-avatar"><i class="fas fa-robot"></i></div><div class="message-content">¡Hola! Soy el asistente virtual de Blue Butterfly.<br>¿En qué puedo ayudarte?</div></div></div><div class="chatbot-input-area"><input type="text" id="chatbotInput" placeholder="Escribe tu mensaje..."><button id="chatbotSendBtn"><i class="fas fa-paper-plane"></i></button></div></div>
 
 <script>
-// Chatbot JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    const floatBtn = document.getElementById('chatbotFloat');
-    const modal = document.getElementById('chatbotModal');
-    const closeBtn = document.getElementById('chatbotClose');
-    const sendBtn = document.getElementById('chatbotSendBtn');
-    const input = document.getElementById('chatbotInput');
-    const messagesContainer = document.getElementById('chatbotMessages');
-
-    function toggleModal() {
-        modal.classList.toggle('show');
-        if (modal.classList.contains('show')) {
-            input.focus();
+    document.addEventListener('DOMContentLoaded', function() {
+        const floatBtn = document.getElementById('chatbotFloat');
+        const modal = document.getElementById('chatbotModal');
+        const closeBtn = document.getElementById('chatbotClose');
+        const sendBtn = document.getElementById('chatbotSendBtn');
+        const input = document.getElementById('chatbotInput');
+        const messages = document.getElementById('chatbotMessages');
+        function toggleModal() { modal.classList.toggle('show'); if (modal.classList.contains('show')) input.focus(); }
+        floatBtn.addEventListener('click', toggleModal);
+        closeBtn.addEventListener('click', toggleModal);
+        function addMessage(text, isUser) {
+            const div = document.createElement('div');
+            div.className = `message ${isUser ? 'user' : 'bot'}`;
+            div.innerHTML = `<div class="message-avatar"><i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i></div><div class="message-content">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
         }
-    }
-
-    floatBtn.addEventListener('click', toggleModal);
-    closeBtn.addEventListener('click', toggleModal);
-
-    function addMessage(text, isUser) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-        const escapedText = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        messageDiv.innerHTML = `
-            <div class="message-avatar"><i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i></div>
-            <div class="message-content">${escapedText}</div>
-        `;
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    function showTyping() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot';
-        typingDiv.id = 'typingIndicator';
-        typingDiv.innerHTML = `
-            <div class="message-avatar"><i class="fas fa-robot"></i></div>
-            <div class="typing-indicator"><span></span><span></span><span></span></div>
-        `;
-        messagesContainer.appendChild(typingDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    function removeTyping() {
-        const typing = document.getElementById('typingIndicator');
-        if (typing) typing.remove();
-    }
-
-    async function sendMessage() {
-        const message = input.value.trim();
-        if (!message) return;
-
-        addMessage(message, true);
-        input.value = '';
-        showTyping();
-
-        try {
-            const response = await fetch('/chatbot/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ message: message })
-            });
-            const data = await response.json();
-            removeTyping();
-            addMessage(data.bot, false);
-        } catch (error) {
-            removeTyping();
-            addMessage('Lo siento, hubo un error. Intenta de nuevo.', false);
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `<div class="message-avatar"><i class="fas fa-robot"></i></div><div class="typing-indicator"><span></span><span></span><span></span></div>`;
+            messages.appendChild(typingDiv);
+            messages.scrollTop = messages.scrollHeight;
         }
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-});
+        function removeTyping() { const typing = document.getElementById('typingIndicator'); if (typing) typing.remove(); }
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+            addMessage(message, true);
+            input.value = '';
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                addMessage("Gracias por tu consulta. Un asesor te contactará pronto.", false);
+            }, 1000);
+        }
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    });
 </script>
-
 </body>
 </html>

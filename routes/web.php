@@ -13,7 +13,7 @@ use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChatbotController;
- // ← AGREGAR ESTA LÍNEA
+use App\Http\Controllers\ReporteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,15 @@ Route::get('/', function () {
 */
 
 Auth::routes();
+
+// 👇 NUEVO: Sobrescribir las rutas GET de login y register para usar la vista unificada con flip
+Route::get('/login', function () {
+    return view('auth.login-register');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('auth.login-register');
+})->name('register');
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +70,7 @@ Route::get('/auth/github/callback', [GithubController::class, 'callback'])->name
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard (MODIFICADO para usar DashboardController)
+| Dashboard
 |--------------------------------------------------------------------------
 */
 
@@ -69,7 +78,7 @@ Route::middleware(['auth'])->get('/dashboard', [DashboardController::class, 'ind
 
 /*
 |--------------------------------------------------------------------------
-| CHATBOT (Asistente virtual)
+| CHATBOT
 |--------------------------------------------------------------------------
 */
 
@@ -82,29 +91,29 @@ Route::post('/chatbot/send', [ChatbotController::class, 'chat'])->name('chatbot.
 */
 
 Route::middleware(['auth'])->group(function () {
-    
-    // RUTAS PARA ALUMNOS
     Route::resource('alumnos', AlumnoController::class);
-    
-    // RUTAS PARA CURSOS
     Route::resource('cursos', CursoController::class);
-    
-    // RUTAS PARA DOCENTES
     Route::resource('docentes', DocenteController::class);
-    
-    // RUTAS PARA HORARIOS
     Route::resource('horarios', HorarioController::class);
-    
-    // RUTAS PARA MATRÍCULAS
     Route::resource('matriculas', MatriculaController::class);
-    
-    // RUTAS PARA AULAS
     Route::resource('aulas', AulaController::class);
-    
-    // Ruta adicional para calificar
     Route::get('/matriculas/{id}/calificar', [MatriculaController::class, 'calificar'])->name('matriculas.calificar');
     Route::post('/matriculas/{id}/calificar', [MatriculaController::class, 'guardarCalificacion'])->name('matriculas.guardarCalificacion');
-    
+});
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS PARA REPORTES PDF
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pdf/alumnos', [ReporteController::class, 'pdfAlumnos'])->name('pdf.alumnos');
+    Route::get('/pdf/cursos', [ReporteController::class, 'pdfCursos'])->name('pdf.cursos');
+    Route::get('/pdf/docentes', [ReporteController::class, 'pdfDocentes'])->name('pdf.docentes');
+    Route::get('/pdf/matriculas', [ReporteController::class, 'pdfMatriculas'])->name('pdf.matriculas');
+    Route::get('/pdf/horarios', [ReporteController::class, 'pdfHorarios'])->name('pdf.horarios');
+    Route::get('/pdf/aulas', [ReporteController::class, 'pdfAulas'])->name('pdf.aulas');
 });
 
 /*

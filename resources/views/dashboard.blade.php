@@ -1,9 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    /* ===== FORZAR OCULTACIÓN COMPLETA DE LA NAVBAR DEL LAYOUT ===== */
+    .navbar,
+    nav.navbar,
+    .navbar.navbar-expand-md,
+    .navbar-light,
+    .navbar-brand,
+    .navbar-nav,
+    .navbar-collapse,
+    .navbar .container,
+    .navbar .container-fluid,
+    .navbar .container-lg,
+    .navbar .container-md,
+    .navbar .container-sm,
+    .navbar .container-xl,
+    header nav,
+    header .navbar,
+    nav:first-of-type,
+    .navbar:first-of-type {
+        display: none !important;
+    }
+    /* Eliminar cualquier espacio reservado */
+    body {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+    /* Asegurar que el contenido del dashboard ocupe todo el ancho */
+    .bbn-dash {
+        margin-top: 0;
+        padding-top: 0;
+    }
+</style>
+
 <div class="bbn-dash">
 
-    <!-- TOPBAR ELEGANTE -->
+    <!-- TOPBAR SIMPLIFICADA (sin nombre de usuario) -->
     <div class="bbn-dash-top">
         <div class="bbn-dash-top-left">
             <div class="brand-mini">
@@ -13,9 +46,8 @@
         </div>
         <div class="bbn-dash-top-right">
             <div class="bbn-dash-user">
-                <div class="bbn-dash-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div>
+                <div class="bbn-dash-avatar">AD</div>
                 <div class="user-info">
-                    <div class="bbn-dash-uname">{{ Auth::user()->name }}</div>
                     <div class="bbn-dash-urole">Administrador</div>
                 </div>
             </div>
@@ -29,27 +61,37 @@
 
     <div class="bbn-dash-body">
 
-        <!-- HERO SECTION - GIGANTE -->
+        <!-- ========== HERO CON VIDEO ========== -->
         <div class="hero-section" data-aos="fade-up" data-aos-duration="1000">
-            <div class="hero-badge">
-                <span class="badge">Panel de Control</span>
-            </div>
-            <h1 class="main-title">Blue Butterfly</h1>
-            <p class="main-sub">Sistema de Gestión Académica</p>
-            <div class="welcome-message-giant">
-                <p>Bienvenido de nuevo, <strong>{{ explode(' ', Auth::user()->name)[0] }}</strong></p>
-                <span class="date-info">Semestre Académico 2025-I · {{ now()->format('d/m/Y') }}</span>
+            <video class="hero-video-bg" autoplay muted loop playsinline>
+                <source src="{{ asset('videos/final.mp4') }}" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge">Panel de Control</span>
+                </div>
+                <h1 class="main-title">
+                    <span class="title-line">Blue Butterfly</span>
+                    <span class="title-accent">Gestión Académica</span>
+                </h1>
+                <div class="hero-decoration"></div>
+                <p class="main-sub">Sistema de administración educativa de alto rendimiento</p>
+                <div class="welcome-message-giant">
+                    <p>Bienvenido de nuevo, <strong>Administrador</strong></p>
+                    <span class="date-info">Semestre Académico 2025-I · {{ now()->format('d/m/Y') }}</span>
+                </div>
             </div>
         </div>
 
-        <!-- TARJETAS DE ESTADÍSTICAS - CON IMÁGENES -->
+        <!-- TARJETAS DE ESTADÍSTICAS -->
         <div class="stats-grid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             <div class="stat-card">
                 <div class="stat-icon">
                     <img src="{{ asset('images/alumnos_activos.png') }}" alt="Alumnos Activos" onerror="this.src='https://placehold.co/90x90/A78BFA/white?text=A'">
                 </div>
                 <div class="stat-info">
-                    <div class="stat-number">6</div>
+                    <div class="stat-number">{{ $totalAlumnos ?? 0 }}</div>
                     <div class="stat-label">Alumnos Activos</div>
                     <div class="stat-trend"><i class="fas fa-arrow-up"></i> +12% este mes</div>
                 </div>
@@ -59,7 +101,7 @@
                     <img src="{{ asset('images/cursos_activos.png') }}" alt="Cursos Activos" onerror="this.src='https://placehold.co/90x90/A78BFA/white?text=C'">
                 </div>
                 <div class="stat-info">
-                    <div class="stat-number">3</div>
+                    <div class="stat-number">{{ $totalCursos ?? 0 }}</div>
                     <div class="stat-label">Cursos Activos</div>
                     <div class="stat-trend"><i class="fas fa-chart-line"></i> En progreso</div>
                 </div>
@@ -69,7 +111,7 @@
                     <img src="{{ asset('images/docentes1.png') }}" alt="Docentes" onerror="this.src='https://placehold.co/90x90/A78BFA/white?text=D'">
                 </div>
                 <div class="stat-info">
-                    <div class="stat-number">3</div>
+                    <div class="stat-number">{{ $totalDocentes ?? 0 }}</div>
                     <div class="stat-label">Docentes</div>
                     <div class="stat-trend"><i class="fas fa-user-plus"></i> Cuerpo académico</div>
                 </div>
@@ -79,7 +121,7 @@
                     <img src="{{ asset('images/matricula1.png') }}" alt="Matrículas" onerror="this.src='https://placehold.co/90x90/A78BFA/white?text=M'">
                 </div>
                 <div class="stat-info">
-                    <div class="stat-number">4</div>
+                    <div class="stat-number">{{ $totalMatriculas ?? 0 }}</div>
                     <div class="stat-label">Matrículas</div>
                     <div class="stat-trend"><i class="fas fa-calendar-check"></i> Este semestre</div>
                 </div>
@@ -102,7 +144,7 @@
             </div>
         </div>
 
-        <!-- ÚLTIMAS MATRÍCULAS Y ACTIVIDAD RECIENTE -->
+        <!-- ÚLTIMAS MATRÍCULAS Y CONSEJO -->
         <div class="two-columns" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             <div class="recent-matriculas-section">
                 <div class="section-header-sm">
@@ -124,7 +166,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($ultimasMatriculas as $matricula)
+                            @php
+                                $matriculasOrdenadas = isset($ultimasMatriculas) ? $ultimasMatriculas->sortByDesc(function($mat) {
+                                    return $mat->fecha_matricula ?? $mat->created_at;
+                                }) : collect();
+                            @endphp
+                            @forelse($matriculasOrdenadas as $matricula)
                             <tr>
                                 <td>
                                     <div class="user-cell">
@@ -136,9 +183,7 @@
                                 <td>{{ \Carbon\Carbon::parse($matricula->fecha_matricula ?? $matricula->created_at)->format('d/m/Y') }}</td>
                             </tr>
                             @empty
-                            <tr>
-                                <td colspan="3" class="text-center">No hay matrículas registradas</td>
-                            </tr>
+                            <tr><td colspan="3" class="text-center">No hay matrículas registradas<\/td></tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -156,114 +201,42 @@
             </div>
         </div>
 
-        <!-- MÓDULOS DE GESTIÓN - TARJETAS ENORMES CON IMAGEN -->
+        <!-- MÓDULOS DE GESTIÓN -->
         <div class="modules-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
             <div class="modules-header">
                 <h3>Módulos de Gestión</h3>
                 <p>Haz clic en cualquier tarjeta para ver información detallada</p>
             </div>
             <div class="modules-grid">
-                <!-- Alumnos -->
-                <div class="module-card" data-module="alumnos" data-route="{{ route('alumnos.index') }}" data-title="Alumnos" data-desc="Gestión completa de estudiantes. Permite registrar, editar, eliminar y consultar el historial académico de cada alumno." data-count="6">
+                @php
+                    $modulos = [
+                        ['mod'=>'alumnos', 'titulo'=>'Alumnos', 'desc'=>'Gestión completa de estudiantes', 'ruta'=>route('alumnos.index'), 'pdf'=>route('pdf.alumnos'), 'total'=>$totalAlumnos ?? 0],
+                        ['mod'=>'cursos', 'titulo'=>'Cursos', 'desc'=>'Catálogo académico', 'ruta'=>route('cursos.index'), 'pdf'=>route('pdf.cursos'), 'total'=>$totalCursos ?? 0],
+                        ['mod'=>'matriculas', 'titulo'=>'Matrículas', 'desc'=>'Control de inscripciones', 'ruta'=>route('matriculas.index'), 'pdf'=>route('pdf.matriculas'), 'total'=>$totalMatriculas ?? 0],
+                        ['mod'=>'docentes', 'titulo'=>'Docentes', 'desc'=>'Personal académico', 'ruta'=>route('docentes.index'), 'pdf'=>route('pdf.docentes'), 'total'=>$totalDocentes ?? 0],
+                        ['mod'=>'horarios', 'titulo'=>'Horarios', 'desc'=>'Programación académica', 'ruta'=>route('horarios.index'), 'pdf'=>route('pdf.horarios'), 'total'=>$totalHorarios ?? 0],
+                        ['mod'=>'aulas', 'titulo'=>'Aulas', 'desc'=>'Espacios educativos', 'ruta'=>route('aulas.index'), 'pdf'=>route('pdf.aulas'), 'total'=>$totalAulas ?? 0],
+                    ];
+                @endphp
+                @foreach($modulos as $mod)
+                <div class="module-card" data-module="{{ $mod['mod'] }}" data-route="{{ $mod['ruta'] }}" data-title="{{ $mod['titulo'] }}" data-desc="{{ $mod['desc'] }}" data-count="{{ $mod['total'] }}">
                     <div class="module-card-inner">
                         <div class="module-icon">
-                            <img src="{{ asset('images/alumnos.png') }}" alt="Alumnos" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=A'">
+                            <img src="{{ asset('images/'.$mod['mod'].'.png') }}" alt="{{ $mod['titulo'] }}" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text={{ substr($mod['titulo'],0,1) }}'">
                         </div>
                         <div class="module-info">
-                            <h3 class="module-title">Alumnos</h3>
-                            <p class="module-desc">Gestión completa de estudiantes</p>
+                            <h3 class="module-title">{{ $mod['titulo'] }}</h3>
+                            <p class="module-desc">{{ $mod['desc'] }}</p>
                         </div>
                         <div class="module-count">
-                            <span class="count-number">6</span>
+                            <a href="{{ $mod['pdf'] }}" class="btn-pdf" title="Exportar a PDF" target="_blank">
+                                <img src="{{ asset('images/expediente.png') }}" alt="PDF" style="width:32px;height:32px;object-fit:contain;">
+                            </a>
                             <i class="fas fa-chevron-right"></i>
                         </div>
                     </div>
                 </div>
-
-                <!-- Cursos -->
-                <div class="module-card" data-module="cursos" data-route="{{ route('cursos.index') }}" data-title="Cursos" data-desc="Catálogo académico completo. Administra toda la oferta educativa, incluyendo nombre del curso, créditos, descripción y docentes." data-count="3">
-                    <div class="module-card-inner">
-                        <div class="module-icon">
-                            <img src="{{ asset('images/cursos.png') }}" alt="Cursos" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=C'">
-                        </div>
-                        <div class="module-info">
-                            <h3 class="module-title">Cursos</h3>
-                            <p class="module-desc">Catálogo académico</p>
-                        </div>
-                        <div class="module-count">
-                            <span class="count-number">3</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Matrículas -->
-                <div class="module-card" data-module="matriculas" data-route="{{ route('matriculas.index') }}" data-title="Matrículas" data-desc="Control central de inscripciones. Registra qué alumnos están matriculados en qué cursos." data-count="4">
-                    <div class="module-card-inner">
-                        <div class="module-icon">
-                            <img src="{{ asset('images/matricula.png') }}" alt="Matrículas" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=M'">
-                        </div>
-                        <div class="module-info">
-                            <h3 class="module-title">Matrículas</h3>
-                            <p class="module-desc">Control de inscripciones</p>
-                        </div>
-                        <div class="module-count">
-                            <span class="count-number">4</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Docentes -->
-                <div class="module-card" data-module="docentes" data-route="{{ route('docentes.index') }}" data-title="Docentes" data-desc="Gestión del personal académico. Registra información de profesores, especialidades y cursos asignados." data-count="3">
-                    <div class="module-card-inner">
-                        <div class="module-icon">
-                            <img src="{{ asset('images/docentes.png') }}" alt="Docentes" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=D'">
-                        </div>
-                        <div class="module-info">
-                            <h3 class="module-title">Docentes</h3>
-                            <p class="module-desc">Personal académico</p>
-                        </div>
-                        <div class="module-count">
-                            <span class="count-number">3</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Horarios -->
-                <div class="module-card" data-module="horarios" data-route="{{ route('horarios.index') }}" data-title="Horarios" data-desc="Programación académica completa. Define días, horas, aulas y docentes para cada curso." data-count="3">
-                    <div class="module-card-inner">
-                        <div class="module-icon">
-                            <img src="{{ asset('images/horarios.png') }}" alt="Horarios" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=H'">
-                        </div>
-                        <div class="module-info">
-                            <h3 class="module-title">Horarios</h3>
-                            <p class="module-desc">Programación académica</p>
-                        </div>
-                        <div class="module-count">
-                            <span class="count-number">3</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Aulas -->
-                <div class="module-card" data-module="aulas" data-route="{{ route('aulas.index') }}" data-title="Aulas" data-desc="Gestión de espacios educativos. Administra disponibilidad, capacidad y equipamiento." data-count="3">
-                    <div class="module-card-inner">
-                        <div class="module-icon">
-                            <img src="{{ asset('images/aulas.png') }}" alt="Aulas" onerror="this.src='https://placehold.co/85x85/A78BFA/white?text=A'">
-                        </div>
-                        <div class="module-info">
-                            <h3 class="module-title">Aulas</h3>
-                            <p class="module-desc">Espacios educativos</p>
-                        </div>
-                        <div class="module-count">
-                            <span class="count-number">3</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
@@ -285,9 +258,7 @@
 <div id="moduleModal" class="module-modal">
     <div class="module-modal-content">
         <div class="module-modal-header">
-            <div class="modal-icon" id="modalIcon">
-                <i class="fas fa-info-circle"></i>
-            </div>
+            <div class="modal-icon" id="modalIcon"><i class="fas fa-info-circle"></i></div>
             <h2 id="modalTitle">Información del Módulo</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
@@ -303,20 +274,8 @@
                 <h4>Vista previa de datos</h4>
                 <div class="preview-table-container">
                     <table class="preview-table" id="previewTable">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ejemplo de registro</td>
-                                <td>Activo</td>
-                            </tr>
-                        </tbody>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Estado</th></tr></thead>
+                        <tbody><tr><td>1</td><td>Ejemplo de registro</td><td>Activo</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -329,20 +288,21 @@
 </div>
 
 <style>
+/* ===== ESTILOS COMPLETOS (FONDO NEGRO, VIDEO EN HERO) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 .bbn-dash {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    background: #FFFFFF;
+    background: #0a0a0a;
     min-height: 100vh;
 }
 
 /* TOPBAR */
 .bbn-dash-top {
-    background: #FFFFFF;
-    border-bottom: 1px solid rgba(167,139,250,0.2);
+    background: #111111;
+    border-bottom: 1px solid rgba(139,92,246,0.3);
     padding: 20px 48px;
     display: flex;
     align-items: center;
@@ -351,43 +311,32 @@
     top: 0;
     z-index: 100;
 }
-
 .brand-mini {
     display: flex;
     align-items: center;
     gap: 12px;
     font-weight: 700;
     font-size: 1.3rem;
-    color: #1A1A1A;
+    color: #f0f0f0;
 }
-.brand-mini i {
-    color: #A78BFA;
-    font-size: 1.6rem;
-}
-
-.bbn-dash-top-right {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-}
-
+.brand-mini i { color: #A78BFA; font-size: 1.6rem; }
+.bbn-dash-top-right { display: flex; align-items: center; gap: 28px; }
 .bbn-dash-user {
     display: flex;
     align-items: center;
-    gap: 16px;
-    background: #F8F8F8;
-    padding: 8px 24px 8px 14px;
+    gap: 12px;
+    background: #1f1f1f;
+    padding: 6px 18px 6px 12px;
     border-radius: 80px;
-    border: 1px solid rgba(167,139,250,0.2);
+    border: 1px solid rgba(167,139,250,0.3);
     transition: all 0.2s;
 }
-.bbn-dash-user:hover { background: #F0F0F0; border-color: rgba(167,139,250,0.4); }
-
+.bbn-dash-user:hover { background: #2a2a2a; border-color: rgba(167,139,250,0.5); }
 .bbn-dash-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 42px;
+    height: 42px;
     background: linear-gradient(135deg, #A78BFA, #8B5CF6);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,147 +345,225 @@
     color: #FFFFFF;
     box-shadow: 0 4px 12px rgba(167,139,250,0.3);
 }
-
 .user-info { display: flex; flex-direction: column; }
-.bbn-dash-uname { font-size: 15px; font-weight: 700; color: #1A1A1A; }
-.bbn-dash-urole { font-size: 12px; color: #A78BFA; font-weight: 600; }
-
+.bbn-dash-urole { font-size: 12px; color: #A78BFA; font-weight: 600; letter-spacing: 0.5px; }
 .bbn-dash-logout {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 24px;
-    background: rgba(220,38,38,0.05);
-    border: 1px solid rgba(220,38,38,0.15);
+    padding: 8px 20px;
+    background: rgba(220,38,38,0.1);
+    border: 1px solid rgba(220,38,38,0.3);
     border-radius: 80px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    color: #dc2626;
+    color: #f87171;
     text-decoration: none;
     transition: all 0.2s;
 }
 .bbn-dash-logout:hover { background: #dc2626; color: white; transform: translateY(-2px); }
-
 .bbn-dash-body { padding: 56px 64px; max-width: 1600px; margin: 0 auto; }
 
-/* HERO - GIGANTE */
-.hero-section { text-align: center; margin-bottom: 64px; }
+/* ========== HERO CON VIDEO ========== */
+.hero-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 80px;
+    border-radius: 48px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.5);
+}
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px 60px;
+}
 .hero-badge { margin-bottom: 24px; }
 .badge {
     display: inline-block;
-    background: #F5F0FF;
-    color: #A78BFA;
+    background: rgba(139,92,246,0.2);
+    backdrop-filter: blur(4px);
+    color: #c4b5fd;
     font-size: 0.85rem;
     font-weight: 600;
     padding: 8px 20px;
     border-radius: 60px;
-    border: 1px solid rgba(167,139,250,0.3);
+    border: 1px solid rgba(139,92,246,0.6);
 }
 .main-title {
-    font-size: 6rem;
+    font-size: 4.5rem;
     font-weight: 800;
-    letter-spacing: -2px;
-    background: linear-gradient(135deg, #1A1A1A, #A78BFA, #8B5CF6);
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+.title-line {
+    background: linear-gradient(135deg, #ffffff, #d9c8ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    margin-bottom: 16px;
+    display: block;
 }
-.main-sub { font-size: 1.2rem; color: #6B7280; letter-spacing: 4px; font-weight: 500; }
-.welcome-message-giant { margin-top: 32px; }
-.welcome-message-giant p { font-size: 2rem; font-weight: 600; color: #1A1A1A; margin-bottom: 12px; }
-.welcome-message-giant strong { color: #A78BFA; font-weight: 800; font-size: 2.2rem; }
-.date-info { font-size: 0.9rem; color: #6B7280; display: inline-block; margin-top: 8px; padding: 6px 16px; background: #F8F8F8; border-radius: 40px; }
+.title-accent {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 3rem;
+    display: block;
+    margin-top: 8px;
+}
+.hero-decoration {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #8b5cf6, #a78bfa, #8b5cf6);
+    margin: 24px auto 20px;
+    border-radius: 4px;
+}
+.main-sub {
+    font-size: 1rem;
+    color: #d1d1e0;
+    letter-spacing: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+}
+.welcome-message-giant {
+    margin-top: 24px;
+    background: rgba(0,0,0,0.5);
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 60px;
+    backdrop-filter: blur(4px);
+}
+.welcome-message-giant p {
+    font-size: 1.3rem;
+    color: #f0f0f0;
+    margin-bottom: 0;
+}
+.welcome-message-giant strong {
+    color: #c4b5fd;
+    font-weight: 800;
+}
+.date-info {
+    font-size: 0.75rem;
+    color: #b9b9c3;
+    background: transparent;
+    padding: 0;
+}
 
-/* ESTADÍSTICAS - ENORMES */
+/* ESTADÍSTICAS */
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 64px; }
 .stat-card {
-    background: #F8F8F8;
+    background: #16161a;
     border-radius: 32px;
     padding: 36px 32px;
     display: flex;
     align-items: center;
     gap: 24px;
     transition: all 0.35s ease;
-    border: 1px solid rgba(167,139,250,0.15);
+    border: 1px solid rgba(167,139,250,0.2);
 }
-.stat-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.4); box-shadow: 0 25px 40px -18px rgba(167,139,250,0.2); }
+.stat-card:hover { transform: translateY(-6px); border-color: #A78BFA; box-shadow: 0 25px 40px -18px rgba(167,139,250,0.3); }
 .stat-icon {
-    width: 90px;
-    height: 90px;
-    background: #FFFFFF;
+    width: 90px; height: 90px;
+    background: #2a2a2e;
     border-radius: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
-.stat-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.stat-icon img { width: 100%; height: 100%; object-fit: cover; }
 .stat-info { flex: 1; }
-.stat-number { font-size: 3.5rem; font-weight: 800; color: #1A1A1A; font-family: monospace; letter-spacing: -2px; }
-.stat-label { font-size: 1rem; color: #6B7280; font-weight: 500; margin-top: 8px; }
+.stat-number { font-size: 3.5rem; font-weight: 800; color: #fff; font-family: monospace; letter-spacing: -2px; }
+.stat-label { font-size: 1rem; color: #a0a0b0; font-weight: 500; margin-top: 8px; }
 .stat-trend { font-size: 0.8rem; color: #10b981; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
 
 /* GRÁFICO */
 .chart-section {
-    background: #F8F8F8;
+    background: #16161a;
     border-radius: 32px;
     padding: 40px;
     margin-bottom: 64px;
-    border: 1px solid rgba(167,139,250,0.15);
-    transition: all 0.3s;
+    border: 1px solid rgba(167,139,250,0.2);
+    transition: all 0.35s ease;
 }
-.chart-section:hover { border-color: rgba(167,139,250,0.3); box-shadow: 0 12px 30px -12px rgba(167,139,250,0.1); }
+.chart-section:hover { border-color: rgba(167,139,250,0.5); box-shadow: 0 12px 30px -12px rgba(167,139,250,0.1); }
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 20px; }
-.section-title { font-size: 1.6rem; font-weight: 700; color: #1A1A1A; }
-.section-subtitle { font-size: 0.9rem; color: #6B7280; margin-top: 8px; }
-.badge-info { background: #FFFFFF; padding: 10px 22px; border-radius: 60px; font-size: 0.85rem; font-weight: 500; color: #A78BFA; border: 1px solid rgba(167,139,250,0.3); }
+.section-title { font-size: 1.6rem; font-weight: 700; color: #f0f0f0; }
+.section-subtitle { font-size: 0.9rem; color: #a0a0b0; margin-top: 8px; }
+.badge-info { background: #2a2a2e; padding: 10px 22px; border-radius: 60px; font-size: 0.85rem; font-weight: 500; color: #A78BFA; border: 1px solid #A78BFA; }
 .chart-container { position: relative; width: 100%; height: 460px; }
 
 /* DOS COLUMNAS */
 .two-columns { display: grid; grid-template-columns: 1.8fr 1fr; gap: 32px; margin-bottom: 64px; }
 .recent-matriculas-section {
-    background: #F8F8F8;
+    background: #16161a;
     border-radius: 32px;
     padding: 32px;
-    border: 1px solid rgba(167,139,250,0.15);
-    transition: all 0.3s;
+    border: 1px solid rgba(167,139,250,0.2);
+    transition: all 0.35s ease;
 }
-.recent-matriculas-section:hover { border-color: rgba(167,139,250,0.3); box-shadow: 0 12px 30px -12px rgba(167,139,250,0.1); }
+.recent-matriculas-section:hover { border-color: rgba(167,139,250,0.4); }
 .section-header-sm { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
 .header-icon {
-    width: 56px;
-    height: 56px;
-    background: #FFFFFF;
+    width: 56px; height: 56px;
+    background: #2a2a2e;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
-.header-icon-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.section-header-sm h4 { font-size: 1.4rem; font-weight: 700; color: #1A1A1A; }
-.section-header-sm p { font-size: 0.85rem; color: #6B7280; }
+.header-icon-img { width: 100%; height: 100%; object-fit: cover; }
+.section-header-sm h4 { font-size: 1.4rem; font-weight: 700; color: #f0f0f0; }
+.section-header-sm p { font-size: 0.85rem; color: #a0a0b0; }
 .table-responsive { overflow-x: auto; }
 .recent-table { width: 100%; border-collapse: collapse; }
-.recent-table th { text-align: left; padding: 18px 16px; background: #FFFFFF; color: #A78BFA; font-weight: 600; font-size: 0.9rem; border-radius: 16px; }
-.recent-table td { padding: 16px; border-bottom: 1px solid #E5E7EB; color: #4B5563; font-size: 0.95rem; }
-.recent-table tr:hover td { background: #FFFFFF; }
+.recent-table th { text-align: left; padding: 18px 16px; background: #2a2a2e; color: #A78BFA; font-weight: 600; font-size: 0.9rem; border-radius: 16px; }
+.recent-table td {
+    padding: 16px;
+    border-bottom: 1px solid #2a2a2e;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+.recent-table td .user-cell span { color: #e0e0e0; }
+.recent-table tr:hover td { background: #1e1e22; }
 .user-cell { display: flex; align-items: center; gap: 14px; }
-.user-avatar-sm { width: 44px; height: 44px; background: linear-gradient(135deg, #F5F0FF, #EDE9FE); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #A78BFA; }
-.course-badge { background: #FFFFFF; padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 500; color: #4B5563; border: 1px solid rgba(167,139,250,0.2); }
+.user-avatar-sm {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #2a2a2e, #3a3a40);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #A78BFA;
+}
+.course-badge { background: #2a2a2e; padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 500; color: #f0f0f0; border: 1px solid rgba(167,139,250,0.3); }
 
 /* TARJETA CONSEJO */
 .tip-card {
-    background: linear-gradient(135deg, #F5F0FF, #FFFFFF);
+    background: linear-gradient(135deg, #1a1a2e, #16161a);
     border-radius: 32px;
     padding: 40px 32px;
     display: flex;
@@ -545,103 +572,74 @@
     text-align: center;
     gap: 24px;
     border: 1px solid rgba(167,139,250,0.2);
-    transition: all 0.3s;
+    transition: all 0.35s ease;
 }
-.tip-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.4); box-shadow: 0 25px 40px -18px rgba(167,139,250,0.2); }
-.tip-icon { width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; }
+.tip-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.5); }
+.tip-icon { width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; background: #2a2a2e; }
 .tip-icon-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-.tip-content h4 { font-size: 1.4rem; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; }
-.tip-content p { font-size: 1rem; color: #4B5563; line-height: 1.6; }
+.tip-content h4 { font-size: 1.4rem; font-weight: 700; color: #f0f0f0; margin-bottom: 16px; }
+.tip-content p { font-size: 1rem; color: #c0c0d0; line-height: 1.6; }
 
-/* MÓDULOS - TARJETAS ENORMES */
+/* MÓDULOS */
 .modules-section { margin-bottom: 64px; }
 .modules-header { text-align: center; margin-bottom: 48px; }
-.modules-header h3 { font-size: 2.2rem; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; }
-.modules-header p { color: #6B7280; font-size: 1rem; }
-
-.modules-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
+.modules-header h3 { font-size: 2.2rem; font-weight: 700; color: #f0f0f0; margin-bottom: 12px; }
+.modules-header p { color: #a0a0b0; font-size: 1rem; }
+.modules-grid { display: flex; flex-direction: column; gap: 24px; }
 .module-card {
-    background: #F8F8F8;
+    background: #16161a;
     border-radius: 28px;
-    border: 1px solid rgba(167,139,250,0.15);
+    border: 1px solid rgba(167,139,250,0.2);
     cursor: pointer;
     transition: all 0.35s ease;
 }
-
 .module-card:hover {
     transform: translateX(12px) translateY(-4px);
-    border-color: rgba(167,139,250,0.45);
+    border-color: #A78BFA;
     box-shadow: 0 25px 40px -18px rgba(167,139,250,0.25);
-    background: #FFFFFF;
+    background: #1e1e2a;
 }
-
 .module-card-inner {
     display: flex;
     align-items: center;
     gap: 28px;
     padding: 32px 42px;
 }
-
 .module-icon {
-    width: 85px;
-    height: 85px;
+    width: 85px; height: 85px;
     flex-shrink: 0;
     border-radius: 24px;
     overflow: hidden;
-    background: #FFFFFF;
+    background: #2a2a2e;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-.module-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.module-info {
-    flex: 1;
-}
-
-.module-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1A1A1A;
-    letter-spacing: -0.5px;
-    margin-bottom: 8px;
-}
-
-.module-desc {
-    font-size: 0.95rem;
-    color: #6B7280;
-}
-
+.module-icon img { width: 100%; height: 100%; object-fit: cover; }
+.module-info { flex: 1; }
+.module-title { font-size: 1.8rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; margin-bottom: 8px; }
+.module-desc { font-size: 0.95rem; color: #a0a0b0; }
 .module-count {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     flex-shrink: 0;
 }
-
-.count-number {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #A78BFA;
-    font-family: monospace;
+.btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
-
+.btn-pdf:hover { transform: scale(1.05); }
 .module-count i {
-    color: #D1D5DB;
+    color: #4a4a5a;
     font-size: 1.4rem;
     transition: all 0.2s;
 }
-
 .module-card:hover .module-count i {
     color: #A78BFA;
     transform: translateX(8px);
@@ -654,23 +652,23 @@
     align-items: center;
     gap: 14px;
     background: transparent;
-    border: 1.5px solid rgba(167,139,250,0.3);
+    border: 1.5px solid rgba(167,139,250,0.4);
     border-radius: 80px;
     padding: 16px 40px;
     font-size: 1rem;
     font-weight: 600;
-    color: #4B5563;
+    color: #e0e0e0;
     text-decoration: none;
-    transition: all 0.25s;
+    transition: all 0.2s;
 }
-.btn-back:hover { background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.6); color: #A78BFA; transform: translateY(-3px); }
+.btn-back:hover { background: rgba(167,139,250,0.1); border-color: #A78BFA; color: #A78BFA; transform: translateY(-3px); }
 
 /* FOOTER */
 .bbn-dash-footer { text-align: center; padding: 40px 0 20px; border-top: 1px solid rgba(167,139,250,0.1); margin-top: 24px; }
-.bbn-dash-footer p { font-size: 0.85rem; color: #6B7280; }
-.tech-stack { margin-top: 10px; font-size: 0.75rem !important; font-family: monospace; }
+.bbn-dash-footer p { font-size: 0.85rem; color: #808090; }
+.tech-stack { margin-top: 10px; font-size: 0.75rem !important; font-family: monospace; color: #606070; }
 
-/* MODAL */
+/* MODAL OSCURO */
 .module-modal {
     display: none;
     position: fixed;
@@ -679,13 +677,13 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.8);
     backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
 }
 .module-modal-content {
-    background: #FFFFFF;
+    background: #1e1e2a;
     border-radius: 36px;
     width: 90%;
     max-width: 720px;
@@ -700,15 +698,14 @@
 }
 .module-modal-header {
     padding: 28px 32px;
-    border-bottom: 1px solid rgba(167,139,250,0.15);
+    border-bottom: 1px solid rgba(167,139,250,0.2);
     display: flex;
     align-items: center;
     gap: 20px;
 }
 .modal-icon {
-    width: 60px;
-    height: 60px;
-    background: #F5F0FF;
+    width: 60px; height: 60px;
+    background: #2a2a30;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -717,33 +714,31 @@
     color: #A78BFA;
     border: 1px solid rgba(167,139,250,0.2);
 }
-.module-modal-header h2 { flex: 1; font-size: 1.8rem; font-weight: 700; color: #1A1A1A; }
-.modal-close { background: none; border: none; font-size: 2.2rem; cursor: pointer; color: #9CA3AF; transition: all 0.2s; }
+.module-modal-header h2 { flex: 1; font-size: 1.8rem; font-weight: 700; color: #f0f0f0; }
+.modal-close { background: none; border: none; font-size: 2.2rem; cursor: pointer; color: #9CA3AF; }
 .modal-close:hover { color: #ef4444; transform: scale(1.1); }
 .module-modal-body { padding: 32px; }
-.module-modal-body p { font-size: 1rem; color: #4B5563; line-height: 1.6; margin-bottom: 28px; }
-.modal-stats { background: #F8F8F8; border-radius: 24px; padding: 24px; margin-bottom: 28px; display: flex; justify-content: center; border: 1px solid rgba(167,139,250,0.1); }
-.stat-item { text-align: center; }
-.stat-label-modal { display: block; font-size: 0.85rem; color: #6B7280; margin-bottom: 10px; }
+.module-modal-body p { font-size: 1rem; color: #d0d0e0; line-height: 1.6; margin-bottom: 28px; }
+.modal-stats { background: #2a2a30; border-radius: 24px; padding: 24px; margin-bottom: 28px; display: flex; justify-content: center; border: 1px solid rgba(167,139,250,0.1); }
+.stat-label-modal { display: block; font-size: 0.85rem; color: #a0a0b0; margin-bottom: 10px; }
 .stat-value-modal { font-size: 2.5rem; font-weight: 800; color: #A78BFA; font-family: monospace; }
-.modal-preview h4 { font-size: 1.1rem; font-weight: 600; color: #1A1A1A; margin-bottom: 20px; }
+.modal-preview h4 { font-size: 1.1rem; font-weight: 600; color: #f0f0f0; margin-bottom: 20px; }
 .preview-table-container { overflow-x: auto; }
-.preview-table { width: 100%; border-collapse: collapse; background: #F8F8F8; border-radius: 20px; overflow: hidden; }
-.preview-table th { text-align: left; padding: 14px 18px; background: #FFFFFF; color: #A78BFA; font-weight: 600; font-size: 0.85rem; }
-.preview-table td { padding: 12px 18px; border-bottom: 1px solid #E5E7EB; color: #4B5563; font-size: 0.9rem; }
+.preview-table { width: 100%; border-collapse: collapse; background: #2a2a30; border-radius: 20px; overflow: hidden; }
+.preview-table th { text-align: left; padding: 14px 18px; background: #1e1e2a; color: #A78BFA; font-weight: 600; font-size: 0.85rem; }
+.preview-table td { padding: 12px 18px; border-bottom: 1px solid #1e1e2a; color: #d0d0e0; font-size: 0.9rem; }
 .module-modal-footer { padding: 24px 32px 32px; display: flex; justify-content: flex-end; gap: 20px; }
 .btn-secondary {
     background: transparent;
-    border: 1px solid rgba(167,139,250,0.3);
+    border: 1px solid rgba(167,139,250,0.4);
     border-radius: 80px;
     padding: 12px 28px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #4B5563;
+    color: #e0e0e0;
     cursor: pointer;
-    transition: all 0.2s;
 }
-.btn-secondary:hover { background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.5); color: #A78BFA; }
+.btn-secondary:hover { background: rgba(167,139,250,0.1); border-color: #A78BFA; color: #A78BFA; }
 .btn-primary-modal {
     background: linear-gradient(135deg, #A78BFA, #8B5CF6);
     border: none;
@@ -753,13 +748,12 @@
     font-weight: 600;
     color: #FFFFFF;
     text-decoration: none;
-    transition: all 0.2s;
     cursor: pointer;
 }
 .btn-primary-modal:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(167,139,250,0.4); }
 .text-center { text-align: center; }
 
-/* CHATBOT */
+/* CHATBOT OSCURO */
 .chatbot-float {
     position: fixed;
     bottom: 32px;
@@ -798,9 +792,9 @@
     right: 32px;
     width: 400px;
     height: 580px;
-    background: #FFFFFF;
+    background: #1e1e2a;
     border-radius: 28px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     z-index: 1001;
     display: none;
     flex-direction: column;
@@ -819,47 +813,79 @@
     display: flex;
     justify-content: space-between;
     color: #FFFFFF;
-    border-radius: 28px 28px 0 0;
 }
 .chatbot-header-info { display: flex; align-items: center; gap: 14px; }
 .chatbot-header-info i { font-size: 1.8rem; color: #FFFFFF; }
 .chatbot-close { background: none; border: none; color: #FFFFFF; font-size: 2rem; cursor: pointer; }
 .chatbot-close:hover { color: #1A1A1A; }
-.chatbot-messages { flex: 1; overflow-y: auto; padding: 24px; background: #F8F8F8; display: flex; flex-direction: column; gap: 16px; }
-.message { display: flex; gap: 12px; animation: messageFade 0.3s ease; }
+.chatbot-messages { flex: 1; overflow-y: auto; padding: 24px; background: #16161a; display: flex; flex-direction: column; gap: 16px; }
+.message { display: flex; gap: 12px; }
 .message.user { flex-direction: row-reverse; }
-.message-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, #A78BFA, #8B5CF6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFFFFF; flex-shrink: 0; }
+.message-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #A78BFA, #8B5CF6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
 .message.user .message-avatar { background: #10b981; }
-.message-content { max-width: 75%; padding: 12px 16px; background: #FFFFFF; border-radius: 22px; font-size: 0.9rem; color: #1A1A1A; border: 1px solid #E5E7EB; }
+.message-content {
+    max-width: 75%;
+    padding: 12px 16px;
+    background: #2a2a30;
+    border-radius: 22px;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    border: 1px solid #3a3a40;
+}
 .message.user .message-content { background: linear-gradient(135deg, #A78BFA, #8B5CF6); color: #FFFFFF; border: none; }
-.typing-indicator { display: flex; gap: 5px; padding: 12px 16px; background: #FFFFFF; border-radius: 22px; width: fit-content; border: 1px solid #E5E7EB; }
+.typing-indicator { display: flex; gap: 5px; padding: 12px 16px; background: #2a2a30; border-radius: 22px; width: fit-content; border: 1px solid #3a3a40; }
 .typing-indicator span { width: 8px; height: 8px; background: #A78BFA; border-radius: 50%; animation: typing 1.4s infinite; }
 @keyframes typing {
     0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
     30% { transform: translateY(-6px); opacity: 1; }
 }
-.chatbot-input-area { display: flex; padding: 18px; background: #FFFFFF; border-top: 1px solid #E5E7EB; gap: 12px; }
-.chatbot-input-area input { flex: 1; padding: 14px 18px; border: 1px solid #E5E7EB; border-radius: 40px; font-size: 0.9rem; outline: none; background: #F8F8F8; color: #1A1A1A; }
+.chatbot-input-area { display: flex; padding: 18px; background: #16161a; border-top: 1px solid #2a2a30; gap: 12px; }
+.chatbot-input-area input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1px solid #3a3a40;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #2a2a30;
+    color: #f0f0f0;
+}
 .chatbot-input-area input:focus { border-color: #A78BFA; }
-.chatbot-input-area button { width: 50px; height: 50px; background: #A78BFA; border: none; border-radius: 50%; color: #FFFFFF; cursor: pointer; font-size: 1.2rem; }
+.chatbot-input-area button {
+    width: 50px; height: 50px;
+    background: #A78BFA;
+    border: none;
+    border-radius: 50%;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
 .chatbot-input-area button:hover { background: #8B5CF6; }
 
+/* RESPONSIVE */
 @media (max-width: 1300px) {
     .stats-grid { gap: 24px; }
     .stat-number { font-size: 2.8rem; }
     .stat-icon { width: 75px; height: 75px; }
     .module-icon { width: 70px; height: 70px; }
     .module-title { font-size: 1.5rem; }
-    .count-number { font-size: 2.2rem; }
     .module-card-inner { padding: 28px 36px; gap: 24px; }
     .bbn-dash-body { padding: 40px; }
+    .main-title { font-size: 3rem; }
+    .title-accent { font-size: 2.2rem; }
+    .hero-section { margin-bottom: 48px; }
 }
 @media (max-width: 1100px) {
     .two-columns { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .main-title { font-size: 4rem; }
-    .welcome-message-giant p { font-size: 1.6rem; }
-    .welcome-message-giant strong { font-size: 1.8rem; }
     .chart-container { height: 380px; }
 }
 @media (max-width: 768px) {
@@ -869,16 +895,15 @@
     .bbn-dash-body { padding: 24px; }
     .module-card-inner { flex-wrap: wrap; justify-content: center; text-align: center; gap: 20px; }
     .module-info { text-align: center; }
-    .main-title { font-size: 3rem; }
-    .welcome-message-giant p { font-size: 1.3rem; }
-    .welcome-message-giant strong { font-size: 1.5rem; }
+    .main-title { font-size: 2.2rem; }
+    .title-accent { font-size: 1.8rem; }
+    .welcome-message-giant p { font-size: 1rem; }
     .chart-container { height: 280px; }
     .chatbot-float { width: 60px; height: 60px; bottom: 20px; right: 20px; }
     .chatbot-float i { font-size: 1.6rem; }
 }
 </style>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -938,9 +963,9 @@
         new Chart(ctx, {
             type: 'bar',
             data: { labels: @json($cursosLabels), datasets: [{ label: 'Alumnos matriculados', data: @json($cursosData), backgroundColor: '#A78BFA', borderRadius: 14, barPercentage: 0.65 }] },
-            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top', labels: { color: '#4B5563' } } }, scales: { y: { grid: { color: '#E5E7EB' }, title: { display: true, text: 'Cantidad de alumnos', color: '#6B7280' }, ticks: { stepSize: 1, color: '#6B7280' } }, x: { ticks: { color: '#4B5563' }, title: { display: true, text: 'Cursos', color: '#6B7280' } } } }
+            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top', labels: { color: '#c0c0d0' } } }, scales: { y: { grid: { color: '#2a2a30' }, title: { display: true, text: 'Cantidad de alumnos', color: '#a0a0b0' }, ticks: { stepSize: 1, color: '#a0a0b0' } }, x: { ticks: { color: '#c0c0d0' }, title: { display: true, text: 'Cursos', color: '#a0a0b0' } } } }
         });
-        const tips = ["La planificación anticipada de horarios reduce conflictos en un 40%", "Matricular alumnos temprano ayuda a equilibrar la carga docente", "Actualizar los datos de contacto de los alumnos es clave para una comunicación efectiva", "Un curso con más de 30 alumnos puede requerir un asistente de docencia", "Los reportes de rendimiento académico ayudan a identificar estudiantes en riesgo"];
+        const tips = ["La planificación anticipada de horarios reduce conflictos en un 40%", "Matricular alumnos temprano ayuda a equilibrar la carga docente", "Actualizar los datos de contacto de los alumnos es clave", "Un curso con más de 30 alumnos puede requerir un asistente", "Los reportes de rendimiento académico ayudan a identificar estudiantes en riesgo"];
         document.getElementById('tipText').innerText = tips[Math.floor(Math.random() * tips.length)];
     });
 </script>
@@ -956,12 +981,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const floatBtn = document.getElementById('chatbotFloat');
-        const modal = document.getElementById('chatbotModal');
+        const modalChat = document.getElementById('chatbotModal');
         const closeBtn = document.getElementById('chatbotClose');
         const sendBtn = document.getElementById('chatbotSendBtn');
         const input = document.getElementById('chatbotInput');
         const messages = document.getElementById('chatbotMessages');
-        function toggleModal() { modal.classList.toggle('show'); if (modal.classList.contains('show')) input.focus(); }
+        function toggleModal() { modalChat.classList.toggle('show'); if (modalChat.classList.contains('show')) input.focus(); }
         floatBtn.addEventListener('click', toggleModal);
         closeBtn.addEventListener('click', toggleModal);
         function addMessage(text, isUser) {
